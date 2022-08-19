@@ -1,8 +1,11 @@
 package academy.mindswap.server;
 
+import academy.mindswap.card.Card;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,7 +16,7 @@ public class Server {
     private Socket clientSocket;
     private ArrayList<ClientHandler> listOfClients;
     private static int numberOfPlayers = 0;
-    private ClientHandler currentClient;
+    private static ClientHandler currentClient;
     private int playersNeededToStart;
 
     public Server(int playersToStart) {
@@ -27,7 +30,13 @@ public class Server {
         }
     }
 
+    public static Object getCurrentClient() {
+        return currentClient;
+    }
 
+    public static void changeCurrentClient(ClientHandler client) {
+        currentClient = client;
+    }
 
     private void acceptClient() throws IOException {
         System.out.println("Waiting for players to start the game");
@@ -38,6 +47,7 @@ public class Server {
         System.out.println(client.getName() + " Joined our room...");
         if (listOfClients.size() == playersNeededToStart){
             Game game = new Game();
+            game.startGame();
             currentClient.sendPrivateMessage("It's your turn:");
             System.out.println(currentClient.listenToClient());
         }
@@ -50,12 +60,13 @@ public class Server {
         private BufferedWriter output;
         private final Socket socket;
         private String name;
-        protected HashMap <String, Integer> deck;
+        protected List<Card> deck;
 
         public ClientHandler(Socket socket, String name) {
             this.socket = socket;
             this.name = name;
             startBuffers();
+
         }
         private void startBuffers() {
             try {
@@ -87,6 +98,10 @@ public class Server {
                 throw new RuntimeException(e);
             }
 
+        }
+
+        public List<Card> getDeck() {
+            return deck;
         }
 
 
