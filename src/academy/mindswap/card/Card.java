@@ -15,7 +15,7 @@ public class Card {
     //this.description = description;
     //this.year = year;
 
-    public void deck () {
+    public static void deck () {
         Map<String, Integer> deck = new HashMap<>();
         deck.put("first computer", 1936);
         deck.put("first transistor", 1947);

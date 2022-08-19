@@ -1,11 +1,11 @@
 package academy.mindswap.server;
 
-import academy.mindswap.game.Game;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 public class Server {
     private ServerSocket serverSocket;
@@ -50,6 +50,7 @@ public class Server {
         private BufferedWriter output;
         private final Socket socket;
         private String name;
+        protected HashMap <String, Integer> deck;
 
         public ClientHandler(Socket socket, String name) {
             this.socket = socket;
@@ -87,5 +88,7 @@ public class Server {
             }
 
         }
+
+
     }
 }
