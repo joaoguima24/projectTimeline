@@ -1,5 +1,7 @@
 package academy.mindswap.server;
 
+import academy.mindswap.game.Game;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -35,14 +37,15 @@ public class Server {
         client.sendPrivateMessage(client.getName() + " , welcome to our game!");
         System.out.println(client.getName() + " Joined our room...");
         if (listOfClients.size() == playersNeededToStart){
-            currentClient = listOfClients.get(0);
+            Game game = new Game();
             currentClient.sendPrivateMessage("It's your turn:");
+            System.out.println(currentClient.listenToClient());
         }
         acceptClient();
     }
 
 
-    private class ClientHandler {
+    public class ClientHandler {
         private BufferedReader input;
         private BufferedWriter output;
         private final Socket socket;
