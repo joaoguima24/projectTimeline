@@ -42,7 +42,7 @@ public class Client {
         private void listenMessage() {
             try {
                 String inputFromServer = input.readLine();
-                System.out.println(inputFromServer);
+                System.out.println(System.in);
                 if (inputFromServer.equalsIgnoreCase("It's your turn:")){
                     sendMessageToServer();
                 }
