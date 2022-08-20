@@ -2,7 +2,6 @@ package academy.mindswap.server;
 
 
 import academy.mindswap.card.Card;
-import academy.mindswap.server.Server;
 
 import java.util.*;
 
@@ -136,7 +135,7 @@ public class Game implements Runnable{
     private void createTimeline(){}
     @Override
     public void run() {
-
+        startGame();
 
     }
 }
