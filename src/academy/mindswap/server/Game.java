@@ -5,6 +5,8 @@ import academy.mindswap.card.Card;
 import academy.mindswap.server.Server;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //gm3nd3s code
 public class Game implements Runnable{
@@ -64,11 +66,28 @@ public class Game implements Runnable{
             invalidPlay();
         }
         //First letter(Card) + positions= A 1,2
-        String regex = "^[a-z]";
+        String regexBefore = "[0-9]*(?=,)";
+        String regexAfter = "0-9]*(?!,)";
+        Pattern patternBefore = Pattern.compile(regexBefore);
+        Pattern patternAfter = Pattern.compile(regexAfter);
+        Matcher matcherBefore = patternBefore.matcher(message);
+        Matcher matcherAfter = patternAfter.matcher(message);
         //LETTERS
         String messageCardPosition = message.trim().toLowerCase().substring(0,1);
         int position1 = 0;
         int position2 = 0;// parse to int
+
+        if(matcherBefore.find()){
+            position1 = Integer.parseInt(matcherBefore.group());
+        }
+        if(matcherAfter.find()){
+            position2 = Integer.parseInt(matcherAfter.group());
+        }
+        if(position1 == 0 || position2 == 0){
+            invalidPlay();
+            validateMessage(currentClient.listenToClient());
+        }
+
         //validate the message and only calls validatePlay(); if it is valid
         validatePlay(messageCardPosition, position1, position2);
     }
