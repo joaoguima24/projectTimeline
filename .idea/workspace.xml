@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Util class&#10;Client Handler broadcast method&#10;Javadoc on server and client" />
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Util class&#10;Client Handler broadcast method&#10;Javadoc on server and client">
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="joaoguima24" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -74,6 +76,7 @@
       <list>
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Main" />
       </list>
@@ -109,6 +112,20 @@
       <option name="project" value="LOCAL" />
       <updated>1660928617978</updated>
     </task>
+    <task id="LOCAL-00004" summary="Game logic worked on. Few tweaks to Server and Card">
+      <created>1660951903762</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660951903762</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Game logic worked on. Few tweaks to Server and Card. Progressed on GAME">
+      <created>1661004387554</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1661004387554</updated>
+    </task>
     <option name="localTasksCounter" value="4" />
     <servers />
   </component>
@@ -123,7 +140,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="joaoguima24" />
+                        <option value="gm" />
                       </list>
                     </value>
                   </entry>
@@ -137,6 +154,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="server - client communication" />
+    <MESSAGE value="server - client communication. Game logic progressed." />
+    <MESSAGE value="Game logic worked on. Few tweaks to Server and Card" />
+    <MESSAGE value="Game logic worked on. Few tweaks to Server and Card. Progressed on GAME" />
     <MESSAGE value="Implementing Game as a new Thread" />
     <option name="LAST_COMMIT_MESSAGE" value="Implementing Game as a new Thread" />
   </component>
