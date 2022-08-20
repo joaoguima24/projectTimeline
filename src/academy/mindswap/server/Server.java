@@ -13,7 +13,6 @@ public class Server {
     private Socket clientSocket;
     private ArrayList<ClientHandler> listOfClients;
     private static int numberOfPlayers = 0;
-    private ClientHandler currentClient;
     private int playersNeededToStart;
 
     /**

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Implementing Game as a new Thread">
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" afterDir="false" />
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Util class&#10;Client Handler broadcast method&#10;Javadoc on server and client">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,12 +40,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.client.Client" />
@@ -77,6 +75,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Client" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Main" />
       </list>
