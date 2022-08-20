@@ -1,6 +1,8 @@
 package academy.mindswap.card;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -15,30 +17,47 @@ public class Card {
     //this.description = description;
     //this.year = year;
 
-    public void deck () {
-        Map<String, Integer> deck = new HashMap<>();
-        deck.put("first computer", 1936);
-        deck.put("first transistor", 1947);
-        deck.put("IBM foundation", 1953);
-        deck.put("first bank computers", 1955);
-        deck.put("first computer chip", 1958);
-        deck.put("first video games", 1962);
-        deck.put("mouse", 1963);
-        deck.put("first internet", 1969);
-        deck.put("c", 1972);
-        deck.put("first personal computer", 1974);
-        deck.put("microsoft foundation", 1975);
-        deck.put("apple foundation", 1976);
-        deck.put("new internet", 1991);
-        deck.put("first laptop", 1991);
-        deck.put("java", 1995);
-        deck.put("world wide convention", 1996);
-        deck.put("mini computers", 1999);
-        deck.put("first iphone", 2007);
 
-        System.out.println(deck);
+    public Card(String description, int year) {
+        this.description = description;
+        this.year = year;
     }
 
+    public static List<Card> deck () {
+        List<Card> deck = new ArrayList<>();
+        deck.add(new Card("first computer", 1936));
+        deck.add(new Card("first transistor", 1947));
+        deck.add(new Card("IBM foundation", 1953));
+        deck.add(new Card("first bank computers", 1955));
+        deck.add(new Card("first computer chip", 1958));
+        deck.add(new Card("first video games", 1962));
+        deck.add(new Card("mouse", 1963));
+        deck.add(new Card("first internet", 1969));
+        deck.add(new Card("c", 1972));
+        deck.add(new Card("first personal computer", 1974));
+        deck.add(new Card("microsoft foundation", 1975));
+        deck.add(new Card("apple foundation", 1976));
+        deck.add(new Card("new internet", 1991));
+        deck.add(new Card("first laptop", 1991));
+        deck.add(new Card("java", 1995));
+        deck.add(new Card("world wide convention", 1996));
+        deck.add(new Card("mini computers", 1999));
+        deck.add(new Card("first iphone", 2007));
+        System.out.println(deck.toString());
+        return deck;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "description='" + description + '\'' +
+                ", year=" + year +
+                '}';
+    }
+
+    public static int getYear(Card card) {
+        return card.year;
+    }
 }
 /*  public final static int first_Computer = 1936;
     public final static int transistor = 1947;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+
     <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Util class&#10;Client Handler broadcast method&#10;Javadoc on server and client">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" afterDir="false" />
@@ -98,6 +99,37 @@
       <option name="project" value="LOCAL" />
       <updated>1660922109011</updated>
     </task>
+
+    <task id="LOCAL-00002" summary="server - client communication">
+      <created>1660927423858</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1660927423858</updated>
+    </task>
+    <task id="LOCAL-00003" summary="server - client communication. Game logic progressed.">
+      <created>1660929321334</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1660929321334</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Game logic worked on. Few tweaks to Server and Card">
+      <created>1660951903762</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660951903762</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Game logic worked on. Few tweaks to Server and Card. Progressed on GAME">
+      <created>1661004387554</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1661004387554</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+
     <task id="LOCAL-00002" summary="Implementing Game as a new Thread">
       <created>1660927122845</created>
       <option name="number" value="00002" />
@@ -113,6 +145,7 @@
       <updated>1660928617978</updated>
     </task>
     <option name="localTasksCounter" value="4" />
+
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,7 +159,11 @@
                   <entry key="branch">
                     <value>
                       <list>
+
+                        <option value="gm" />
+
                         <option value="joaoguima24" />
+
                       </list>
                     </value>
                   </entry>
@@ -140,7 +177,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="server - client communication" />
+
+    <MESSAGE value="server - client communication. Game logic progressed." />
+    <MESSAGE value="Game logic worked on. Few tweaks to Server and Card" />
+    <MESSAGE value="Game logic worked on. Few tweaks to Server and Card. Progressed on GAME" />
+    <option name="LAST_COMMIT_MESSAGE" value="Game logic worked on. Few tweaks to Server and Card. Progressed on GAME" />
+
     <MESSAGE value="Implementing Game as a new Thread" />
     <option name="LAST_COMMIT_MESSAGE" value="Implementing Game as a new Thread" />
+
   </component>
 </project>
