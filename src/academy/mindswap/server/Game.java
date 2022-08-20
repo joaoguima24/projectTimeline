@@ -16,6 +16,9 @@ public class Game implements Runnable{
     private List<Card> timelineDeck = new ArrayList<>();
     private String currentMessage = "";
 
+    public Game(ArrayList<Server.ClientHandler> listOfClients) {
+        this.listOfClients = listOfClients;
+    }
 
     protected void startGame(){
         shuffleCards(gameDeck);
