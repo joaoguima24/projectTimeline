@@ -36,46 +36,42 @@ public class Game implements Runnable{
         sendTimeline();
         sendDecks();
         changeCurrentPlayer();
-        if(!receiveMessage();
+        receiveMessage();
 
-        if (validatePlay(currentMessage)){
+        /*if (validatePlay(currentMessage)){
             updateDeck();
             updateTimeline();
             changeCurrentPlayer();
             playRound();
-        }
+        }*/
     }
 
-    private boolean validatePlay(String message) {
+    private void validatePlay(String message, int position1, int position2){
+        //update timeline and deck and call playRound()
+
+    }
+
+    private void receiveMessage() {
+        validateMessage(currentClient.listenToClient());
+    }
+
+    private void validateMessage(String message) {
         if (message.equals("")){
-            return false;
-        }
-        return true;
-    }
-
-    private boolean receiveMessage() {
-        String message = currentClient.listenToClient();
-
-        if(!validateMessage(message)){
-            currentClient.sendPrivateMessage("Invalid inout. Try again!");
-            sendMessageToPlayerTurn();
-            receiveMessage();
-        }
-        currentMessage = message;
-    }
-
-    private boolean validateMessage(String message) {
-        if (message.equals("")){
-            return false;
+            invalidPlay();
         }
         //First letter(Card) + positions= A 1,2
         String regex = "^[a-z]";
+        //LETTERS
         String messageCardPosition = message.trim().toLowerCase().substring(0,1);
-        String positions = message.trim().toLowerCase().substring(1);
-        if(){
-            return false;
-        }
-        return true;
+        int position1 = 0;
+        int position2 = 0;// parse to int
+        //validate the message and only calls validatePlay(); if it is valid
+        validatePlay(messageCardPosition, position1, position2);
+    }
+
+    private void invalidPlay() {
+        currentClient.sendPrivateMessage("Invalid play, please try again");
+        receiveMessage();
     }
 
     private void sendMessageToPlayerTurn() {
