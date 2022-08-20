@@ -13,7 +13,6 @@ public class Game implements Runnable{
     private Server.ClientHandler winner = null;
     private ArrayList<Card> gameDeck = new ArrayList<>(Card.deck());
     private List<Card> timelineDeck = new ArrayList<>();
-    private String currentMessage = "";
 
     public Game(ArrayList<Server.ClientHandler> listOfClients) {
         this.listOfClients = listOfClients;
@@ -31,11 +30,11 @@ public class Game implements Runnable{
     };
 
     private void playRound(){
-        if(checkWinner() != null){
-            System.out.println(checkWinner().getName() + " is the winner!");
+        if(checkWinner()){
+            winner = listOfClients.stream().filter(client->client.getDeck().size()==0).findFirst().get();
+            broadCastMessage("The Winner is: " + winner.getName());
             return;
-        };
-
+        }
         sendTimeline();
         sendDecks();
         changeCurrentPlayer();
@@ -92,14 +91,10 @@ public class Game implements Runnable{
     }
 
     private void sendTimeline() {
-        for (Server.ClientHandler client : listOfClients){
-             client.sendPrivateMessage(timelineDeck.toString());
-        }
-
+        broadCastMessage(timelineDeck.toString());
     }
-
-    private void removeCardFromDeck(Server.ClientHandler client, int i){
-        client.deck.remove(i);
+    private void removeCardFromDeck(int deckPosition){
+        currentClient.deck.remove(deckPosition);
     }
 
     private void sendDecks() {
@@ -115,19 +110,24 @@ public class Game implements Runnable{
         }
     }
     private Card giveCard(){
-        Card card = gameDeck.get(0);
-        gameDeck.remove(0);
-        return card;
+        return gameDeck.remove(0);
     }
 
-    private Server.ClientHandler checkWinner() {
-        for (Server.ClientHandler client : listOfClients){
+    private boolean checkWinner() {
+        return listOfClients.stream()
+                .anyMatch(client->client.getDeck().size()==0);
+
+        /*for (Server.ClientHandler client : listOfClients){
             if(client.getDeck().size() == 0){
-                winner = client;
-                return client;
+                this.winner = client;
+                return;
             }
         }
-        return null;
+
+         */
+    }
+    protected void broadCastMessage (String message){
+        listOfClients.forEach(client -> client.sendPrivateMessage(message));
     }
 
 

@@ -147,9 +147,7 @@ public class Server {
          * Broadcasting a message to everyone in our list of clients
          * @param message
          */
-        protected void broadCastMessage (String message){
-            listOfClients.forEach(client -> client.sendPrivateMessage(message));
-        }
+
 
         /**
          * Using our input buffer to listen a communication of a client
