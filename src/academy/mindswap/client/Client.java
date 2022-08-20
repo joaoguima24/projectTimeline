@@ -1,4 +1,6 @@
 package academy.mindswap.client;
+import academy.mindswap.util.Util;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -10,17 +12,28 @@ public class Client {
         private BufferedReader keyboardReader;
         private BufferedReader input;
         private String name;
-        public static void main(String[] args) {
+
+    /**
+     *Starting our client side
+     */
+    public static void main(String[] args) {
             Client client = new Client();
         }
 
-
-        public Client() {
+    /**
+     * Using our default constructor to connect with the server
+     * And start waiting for communication
+     */
+    public Client() {
             connectToServer();
             listenMessage();
         }
 
-        private void connectToServer() {
+    /**
+     * Connect to the Server
+     * Start our form of communication with server (input/output)
+     */
+    private void connectToServer() {
             try {
                 this.socket = new Socket("localhost",8080);
                 startBuffers();
@@ -29,6 +42,12 @@ public class Client {
             }
         }
 
+    /**
+     * Starting our forms of communication with the server:
+     * input: the way we read a message from server
+     * kerboardReader: the way we communicate with our computer through the keyboard
+     * output: the way we send the message from keyboardReader to the server
+     */
         private void startBuffers() {
             try {
                 this.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -39,38 +58,60 @@ public class Client {
             }
         }
 
+    /**
+     * Wait for a communication of the server with the blocking method readLine()
+     * Print the communication on our console
+     * Then test if the server asked us a question
+     * Start this logic again
+     */
         private void listenMessage() {
             try {
                 String inputFromServer = input.readLine();
                 System.out.println(inputFromServer);
-                if (inputFromServer.equalsIgnoreCase("It's your turn:")){
-                    sendMessageToServer();
-                }
+                canIPlay(inputFromServer);
                 listenMessage();
             } catch (IOException e) {
                 throw new RuntimeException("No message");
             }
         }
 
+    /**
+     * Test if the server asked me a question, if it's true:
+     * I need to answer to play my move using the method sendMessageToServer()
+     * @param inputFromServer
+     */
+    private void canIPlay(String inputFromServer) {
+        if (inputFromServer.equalsIgnoreCase(Util.ITS_YOUR_TURN_TO_PLAY)){
+            sendMessageToServer();
+        }
+    }
 
+    /**
+     * We need to use our keyboardReader method to read our message from the keyboard
+     * Then we will send the message to the Server
+     */
+    private void sendMessageToServer() {
+        String message = keyboardReader();
+        try {
+            output.write(message);
+            output.newLine();
+            output.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        private String keyboardReader(){
+    /**
+     * We will use our buffer to read the message from the keyboard
+     * @return keyboard message
+     */
+    private String keyboardReader(){
             try {
                 return keyboardReader.readLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        private void sendMessageToServer() {
-            String message = keyboardReader();
-            try {
-                output.write(message);
-                output.newLine();
-                output.flush();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
 
-        }
 
 }
