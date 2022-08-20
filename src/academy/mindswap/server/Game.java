@@ -90,7 +90,10 @@ public class Game implements Runnable{
     }
 
     private void sendTimeline() {
-        Server.ClientHandler.broadcastMessage(timelineDeck.toString());
+        for (Server.ClientHandler client : listOfClients){
+             client.sendPrivateMessage(timelineDeck.toString());
+        }
+
     }
 
     private void removeCardFromDeck(Server.ClientHandler client, int i){
