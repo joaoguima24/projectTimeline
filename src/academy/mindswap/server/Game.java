@@ -9,12 +9,18 @@ import java.util.*;
 public class Game implements Runnable{
     private static final int NUMBER_OF_CARDS_PER_PLAYER = 4;
     private ArrayList<Server.ClientHandler> listOfClients;
+    private Server.ClientHandler currentClient;
     private Server.ClientHandler winner = null;
+    private ArrayList<Card> gameDeck = new ArrayList<>(Card.deck());
     private List<Card> timelineDeck = new ArrayList<>();
     private String currentMessage = "";
 
+
     protected void startGame(){
-        shuffleCards(Card.deck());
+        shuffleCards(gameDeck);
+        timelineDeck.add(giveCard());
+        makeDek();
+        currentClient = listOfClients.get((int) Math.abs(Math.random()*listOfClients.size()));
         playRound();
     }
     private void shuffleCards(List<Card> cards){
@@ -26,10 +32,11 @@ public class Game implements Runnable{
             System.out.println(checkWinner().getName() + " is the winner!");
             return;
         };
+
         sendTimeline();
         sendDecks();
-        sendMessageToPlayerTurn();
-        receiveMessage();
+        changeCurrentPlayer();
+        if(!receiveMessage();
 
         if (validatePlay(currentMessage)){
             updateDeck();
@@ -46,10 +53,11 @@ public class Game implements Runnable{
         return true;
     }
 
-    private void receiveMessage() {
-        String message = listOfClients.get(listOfClients.indexOf(Server.getCurrentClient())).listenToClient();
-        if(!validateMessage(message1)){
-            listOfClients.get(listOfClients.indexOf(Server.getCurrentClient())).sendPrivateMessage("Invalid inout. Try again!");
+    private boolean receiveMessage() {
+        String message = currentClient.listenToClient();
+
+        if(!validateMessage(message)){
+            currentClient.sendPrivateMessage("Invalid inout. Try again!");
             sendMessageToPlayerTurn();
             receiveMessage();
         }
@@ -57,21 +65,35 @@ public class Game implements Runnable{
     }
 
     private boolean validateMessage(String message) {
+        if (message.equals("")){
+            return false;
+        }
+        //First letter(Card) + positions= A 1,2
+        String regex = "^[a-z]";
+        String messageCardPosition = message.trim().toLowerCase().substring(0,1);
+        String positions = message.trim().toLowerCase().substring(1);
+        if(){
+            return false;
+        }
+        return true;
     }
 
     private void sendMessageToPlayerTurn() {
-        Server.ClientHandler currentPlayer = (Server.ClientHandler) Server.getCurrentClient();
-        currentPlayer.sendPrivateMessage("It's your turn:");
+        currentClient.sendPrivateMessage("It's your turn:");
     }
 
     private void changeCurrentPlayer() {
-        int currentPlayerIndex = listOfClients.indexOf(Server.getCurrentClient());
-        int nextPlayerIndex = (currentPlayerIndex + 1) % listOfClients.size();
-        Server.changeCurrentClient(listOfClients.get(nextPlayerIndex));;
+        int currentPlayerIndex = listOfClients.indexOf(currentClient);
+        if (currentPlayerIndex + 1 >= listOfClients.size()){
+            currentClient = listOfClients.get(0);
+        } else {
+            currentClient = listOfClients.get(currentPlayerIndex + 1);
+        }
+        sendMessageToPlayerTurn();
     }
 
     private void sendTimeline() {
-        timelineDeck.add(giveCard(Card.deck()));
+        Server.ClientHandler.broadcastMessage(timelineDeck.toString());
     }
 
     private void removeCardFromDeck(Server.ClientHandler client, int i){
@@ -80,17 +102,19 @@ public class Game implements Runnable{
 
     private void sendDecks() {
         for (Server.ClientHandler client : listOfClients){
-            makeDek(client);
+            client.sendPrivateMessage(client.deck.toString());
         }
     }
-    private void makeDek(Server.ClientHandler client){
-        for (int i = 0; client.deck.size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
-            client.deck.add(giveCard(Card.deck()));
+    private void makeDek(){
+        for (Server.ClientHandler client : listOfClients){
+            for (int i = 0; client.deck.size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
+                client.deck.add(giveCard());
+            }
         }
     }
-    private Card giveCard(List<Card> cards){
-        Card card = cards.get(0);
-        cards.remove(0);
+    private Card giveCard(){
+        Card card = gameDeck.get(0);
+        gameDeck.remove(0);
         return card;
     }
 
