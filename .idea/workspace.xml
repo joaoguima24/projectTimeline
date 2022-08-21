@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="">
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="start game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" afterDir="false" />
@@ -47,26 +47,13 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Game">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.client.Client" />
       <module name="projectTimeline" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="academy.mindswap.client.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="academy.mindswap.server.Game" />
-      <module name="projectTimeline" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="academy.mindswap.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -89,7 +76,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Game" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Main" />
@@ -128,12 +114,12 @@
       <option name="project" value="LOCAL" />
       <updated>1660928617978</updated>
     </task>
-    <task id="LOCAL-00004" summary="Util class&#10;Client Handler broadcast method&#10;Javadoc on server and client">
-      <created>1661006487006</created>
+    <task id="LOCAL-00004" summary="start game">
+      <created>1661007097434</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1661006487006</updated>
+      <updated>1661007097434</updated>
     </task>
     <task id="LOCAL-00005" summary="Game logic worked on. Few tweaks to Server and Card. Progressed on GAME">
       <created>1661004387554</created>
@@ -156,7 +142,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="gm" />
                       </list>
                     </value>
                   </entry>
@@ -174,7 +160,7 @@
     <MESSAGE value="Game logic worked on. Few tweaks to Server and Card" />
     <MESSAGE value="Game logic worked on. Few tweaks to Server and Card. Progressed on GAME" />
     <MESSAGE value="Implementing Game as a new Thread" />
-    <MESSAGE value="Util class&#10;Client Handler broadcast method&#10;Javadoc on server and client" />
-    <option name="LAST_COMMIT_MESSAGE" value="Util class&#10;Client Handler broadcast method&#10;Javadoc on server and client" />
+    <MESSAGE value="start game" />
+    <option name="LAST_COMMIT_MESSAGE" value="start game" />
   </component>
 </project>
