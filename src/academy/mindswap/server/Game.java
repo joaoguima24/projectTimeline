@@ -2,6 +2,7 @@ package academy.mindswap.server;
 
 
 import academy.mindswap.card.Card;
+import academy.mindswap.util.Util;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -9,21 +10,25 @@ import java.util.regex.Pattern;
 
 //gm3nd3s code
 public class Game implements Runnable{
-    private static final int NUMBER_OF_CARDS_PER_PLAYER = 4;
+    private static final int NUMBER_OF_CARDS_PER_PLAYER = 1;
     private ArrayList<Server.ClientHandler> listOfClients;
     private Server.ClientHandler currentClient;
     private Server.ClientHandler winner = null;
-    private ArrayList<Card> gameDeck = new ArrayList<>(Card.deck());
-    private List<Card> timelineDeck = new ArrayList<>();
+    private ArrayList<Card> gameDeck;
+    private List<Card> timelineDeck;
 
     public Game(ArrayList<Server.ClientHandler> listOfClients) {
         this.listOfClients = listOfClients;
+        this.gameDeck = (ArrayList<Card>) Card.deck();
+        this.timelineDeck = new ArrayList<>();
+        timelineDeck.add(new Card ("Timeline:",0));
+        timelineDeck.add(new Card ("End:",4000));
     }
 
     protected void startGame(){
         shuffleCards(gameDeck);
-        timelineDeck.add(giveCard());
-        makeDek();
+        timelineDeck.add(timelineDeck.size()-1, giveCard());
+        startPlayersDeck();
         currentClient = listOfClients.get((int) Math.abs(Math.random()*listOfClients.size()));
         playRound();
     }
@@ -33,11 +38,13 @@ public class Game implements Runnable{
 
     private void playRound(){
         if(checkWinner()){
-            winner = listOfClients.stream().filter(client->client.getDeck().size()==0).findFirst().get();
+            winner = listOfClients.stream().filter(client->client.getDeck().isEmpty()).findFirst().get();
             broadCastMessage("The Winner is: " + winner.getName());
             return;
         }
+        broadCastMessage("\n ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. TIMELINE ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. \n");
         sendTimeline();
+        broadCastMessage("\n ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. YOUR DECK ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. \n");
         sendDecks();
         changeCurrentPlayer();
         receiveMessage();
@@ -50,9 +57,21 @@ public class Game implements Runnable{
         }*/
     }
 
-    private void validatePlay(String message, int position1, int position2){
+    private void validatePlay(int indexCard, int position1, int position2){
         //update timeline and deck and call playRound()
+        int cardYear = currentClient.getDeck().get(indexCard).getYear();
+        int firstCardYear = timelineDeck.get(position1).getYear();
+        int secondCardYear = timelineDeck.get(position2).getYear();
 
+        if (cardYear < firstCardYear || cardYear > secondCardYear){
+            currentClient.sendPrivateMessage("You played: " + cardYear + " and failed");
+            currentClient.getDeck().remove(indexCard);
+            currentClient.getDeck().add(giveCard());
+            playRound();
+        }
+        currentClient.sendPrivateMessage("Well played...");
+        timelineDeck.add(position2,currentClient.getDeck().remove(indexCard));
+        playRound();
     }
 
     private void receiveMessage() {
@@ -60,6 +79,7 @@ public class Game implements Runnable{
     }
 
     private void validateMessage(String message) {
+        currentClient.sendPrivateMessage(message);
         if (message.equals("")){
             invalidPlay();
         }
@@ -72,6 +92,10 @@ public class Game implements Runnable{
         Matcher matcherAfter = patternAfter.matcher(message);
         //LETTERS
         String messageCardPosition = message.trim().toLowerCase().substring(0,1);
+        int indexCardByAsciiVal = messageCardPosition.charAt(0) - 97;
+        if (indexCardByAsciiVal < 0 || indexCardByAsciiVal >= currentClient.getDeck().size()){
+            invalidPlay();
+        }
         int position1 = 0;
         int position2 = 0;// parse to int
 
@@ -81,13 +105,17 @@ public class Game implements Runnable{
         if(matcherAfter.find()){
             position2 = Integer.parseInt(matcherAfter.group());
         }
-        if(position1 == 0 || position2 == 0){
-            invalidPlay();
-            validateMessage(currentClient.listenToClient());
-        }
 
-        //validate the message and only calls validatePlay(); if it is valid
-        validatePlay(messageCardPosition, position1, position2);
+        // while regex is not working !!!!
+
+        position2 = position1 +1;
+
+        //ATTENTION TO THIS !!!!
+
+        if (position1 < 0 || position2 > timelineDeck.size()|| (position2 - position1 != 1)){
+            invalidPlay();
+        }
+        validatePlay(indexCardByAsciiVal, position1, position2);
     }
 
     private void invalidPlay() {
@@ -96,7 +124,7 @@ public class Game implements Runnable{
     }
 
     private void sendMessageToPlayerTurn() {
-        currentClient.sendPrivateMessage("It's your turn:");
+        currentClient.sendPrivateMessage(Util.ITS_YOUR_TURN_TO_PLAY);
     }
 
     private void changeCurrentPlayer() {
@@ -112,19 +140,19 @@ public class Game implements Runnable{
     private void sendTimeline() {
         broadCastMessage(timelineDeck.toString());
     }
-    private void removeCardFromDeck(int deckPosition){
-        currentClient.deck.remove(deckPosition);
-    }
 
     private void sendDecks() {
         for (Server.ClientHandler client : listOfClients){
-            client.sendPrivateMessage(client.deck.toString());
+            client.sendPrivateMessage(client.getDeck().toString());
         }
     }
-    private void makeDek(){
+    private void startPlayersDeck(){
         for (Server.ClientHandler client : listOfClients){
-            for (int i = 0; client.deck.size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
-                client.deck.add(giveCard());
+            if (client.getDeck() == null){
+                client.preparePlayerDeckForNextGame();
+            }
+            for (int i = 0; client.getDeck().size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
+                client.getDeck().add(giveCard());
             }
         }
     }
@@ -134,7 +162,7 @@ public class Game implements Runnable{
 
     private boolean checkWinner() {
         return listOfClients.stream()
-                .anyMatch(client->client.getDeck().size()==0);
+                .anyMatch(client->client.getDeck().isEmpty());
 
         /*for (Server.ClientHandler client : listOfClients){
             if(client.getDeck().size() == 0){
@@ -149,9 +177,6 @@ public class Game implements Runnable{
         listOfClients.forEach(client -> client.sendPrivateMessage(message));
     }
 
-
-
-    private void createTimeline(){}
     @Override
     public void run() {
         startGame();
