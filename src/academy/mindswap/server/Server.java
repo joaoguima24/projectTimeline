@@ -72,7 +72,7 @@ public class Server {
     private void areWeReadyToStart() {
         if (listOfClients.size() == playersNeededToStart){
 
-            Game game = new Game();
+            Game game = new Game(listOfClients);
             new Thread(game).start();
             prepareServerForNewGame();
 
