@@ -19,7 +19,6 @@ public class Server {
     private Socket clientSocket;
     private ArrayList<ClientHandler> listOfClients;
     private static int numberOfPlayers = 0;
-    private static ClientHandler currentClient;
     private int playersNeededToStart;
 
     /**
@@ -38,10 +37,6 @@ public class Server {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static Object getCurrentClient() {
-        return currentClient;
     }
 
     /**
@@ -71,9 +66,7 @@ public class Server {
      */
     private void areWeReadyToStart() {
         if (listOfClients.size() == playersNeededToStart){
-
-            Game game = new Game(listOfClients);
-            new Thread(game).start();
+            new Thread(new Game(listOfClients)).start();
             prepareServerForNewGame();
 
         }
@@ -83,6 +76,7 @@ public class Server {
      * Create another list of players that will wait for the new game
      */
     private void prepareServerForNewGame() {
+        System.out.println("Game launched, starting a new waiting list");
         listOfClients = new ArrayList<>();
         numberOfPlayers = 0;
     }
@@ -93,7 +87,7 @@ public class Server {
         private BufferedWriter output;
         private final Socket socket;
         private String name;
-        protected List<Card> deck;
+        private List<Card> deck;
 
         /**
          * Constructor for our client
@@ -106,7 +100,7 @@ public class Server {
             this.socket = socket;
             this.name = name;
             startBuffers();
-
+            preparePlayerDeckForNextGame();
         }
 
         /**
@@ -143,11 +137,6 @@ public class Server {
             }
         }
 
-        /**
-         * Broadcasting a message to everyone in our list of clients
-         * @param message
-         */
-
 
         /**
          * Using our input buffer to listen a communication of a client
@@ -161,11 +150,13 @@ public class Server {
             }
 
         }
+        public void preparePlayerDeckForNextGame(){
+            this.deck = new ArrayList<>();
+        }
 
         public List<Card> getDeck() {
             return deck;
         }
-
 
     }
 }

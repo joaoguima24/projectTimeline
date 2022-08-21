@@ -81,7 +81,7 @@ public class Client {
      * @param inputFromServer
      */
     private void canIPlay(String inputFromServer) {
-        if (inputFromServer.equalsIgnoreCase(Util.ITS_YOUR_TURN_TO_PLAY)){
+        if (inputFromServer.equalsIgnoreCase(Util.ITS_YOUR_TURN_TO_PLAY) || inputFromServer.equalsIgnoreCase("Invalid play, please try again")){
             sendMessageToServer();
         }
     }

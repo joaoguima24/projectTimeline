@@ -43,21 +43,21 @@ public class Card {
         deck.add(new Card("world wide convention", 1996));
         deck.add(new Card("mini computers", 1999));
         deck.add(new Card("first iphone", 2007));
-        System.out.println(deck.toString());
         return deck;
     }
 
     @Override
     public String toString() {
-        return "Card{" +
-                "description='" + description + '\'' +
+        int tempIndex = 0;
+        return  description + '\'' +
                 ", year=" + year +
                 '}';
     }
 
-    public static int getYear(Card card) {
-        return card.year;
+    public int getYear() {
+        return year;
     }
+
 }
 /*  public final static int first_Computer = 1936;
     public final static int transistor = 1947;
