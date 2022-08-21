@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 //gm3nd3s code
 public class Game implements Runnable{
-    private static final int NUMBER_OF_CARDS_PER_PLAYER = 1;
+    private static final int NUMBER_OF_CARDS_PER_PLAYER = 4;
     private ArrayList<Server.ClientHandler> listOfClients;
     private Server.ClientHandler currentClient;
     private Server.ClientHandler winner = null;
@@ -24,6 +24,10 @@ public class Game implements Runnable{
         timelineDeck.add(new Card ("Timeline:",0));
         timelineDeck.add(new Card ("End:",4000));
     }
+    @Override
+    public void run() {
+        startGame();
+    }
 
     protected void startGame(){
         shuffleCards(gameDeck);
@@ -35,6 +39,16 @@ public class Game implements Runnable{
     private void shuffleCards(List<Card> cards){
         Collections.shuffle(cards);
     };
+    private void startPlayersDeck(){
+        for (Server.ClientHandler client : listOfClients){
+            if (client.getDeck() == null){
+                client.preparePlayerDeckForNextGame();
+            }
+            for (int i = 0; client.getDeck().size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
+                client.getDeck().add(giveCard());
+            }
+        }
+    }
 
     private void playRound(){
         if(checkWinner()){
@@ -48,23 +62,27 @@ public class Game implements Runnable{
         sendDecks();
         changeCurrentPlayer();
         receiveMessage();
+    }
+    private boolean checkWinner() {
+        return listOfClients.stream().anyMatch(client->client.getDeck().isEmpty());
+    }
+    private void sendTimeline() {
+        broadCastMessage(timelineDeck.toString());
+    }
 
-        /*if (validatePlay(currentMessage)){
-            updateDeck();
-            updateTimeline();
-            changeCurrentPlayer();
-            playRound();
-        }*/
+    private void sendDecks() {
+        for (Server.ClientHandler client : listOfClients){
+            client.sendPrivateMessage(client.getDeck().toString());
+        }
     }
 
     private void validatePlay(int indexCard, int position1, int position2){
-        //update timeline and deck and call playRound()
         int cardYear = currentClient.getDeck().get(indexCard).getYear();
         int firstCardYear = timelineDeck.get(position1).getYear();
         int secondCardYear = timelineDeck.get(position2).getYear();
 
         if (cardYear < firstCardYear || cardYear > secondCardYear){
-            currentClient.sendPrivateMessage("You played: " + cardYear + " and failed");
+            currentClient.sendPrivateMessage("You played: " + gameDeck.get(indexCard) + " and failed");
             currentClient.getDeck().remove(indexCard);
             currentClient.getDeck().add(giveCard());
             playRound();
@@ -137,49 +155,23 @@ public class Game implements Runnable{
         sendMessageToPlayerTurn();
     }
 
-    private void sendTimeline() {
-        broadCastMessage(timelineDeck.toString());
-    }
 
-    private void sendDecks() {
-        for (Server.ClientHandler client : listOfClients){
-            client.sendPrivateMessage(client.getDeck().toString());
-        }
-    }
-    private void startPlayersDeck(){
-        for (Server.ClientHandler client : listOfClients){
-            if (client.getDeck() == null){
-                client.preparePlayerDeckForNextGame();
-            }
-            for (int i = 0; client.getDeck().size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
-                client.getDeck().add(giveCard());
-            }
-        }
-    }
+
     private Card giveCard(){
         return gameDeck.remove(0);
     }
 
-    private boolean checkWinner() {
-        return listOfClients.stream()
-                .anyMatch(client->client.getDeck().isEmpty());
 
-        /*for (Server.ClientHandler client : listOfClients){
-            if(client.getDeck().size() == 0){
-                this.winner = client;
-                return;
-            }
-        }
-
-         */
-    }
     protected void broadCastMessage (String message){
         listOfClients.forEach(client -> client.sendPrivateMessage(message));
     }
 
-    @Override
-    public void run() {
-        startGame();
 
-    }
 }
+/*
+________________________________
+| Index 0                  | | Index 1                  || Index 2                  |
+| first personal computer  | | first personal computer  || first personal computer  |
+| Year                     | | Year                     || Year                     |
+__________________________________
+ */

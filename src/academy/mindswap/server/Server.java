@@ -2,6 +2,7 @@ package academy.mindswap.server;
 
 
 import academy.mindswap.card.Card;
+import academy.mindswap.client.Client;
 import academy.mindswap.util.Util;
 
 
@@ -19,7 +20,7 @@ public class Server {
     private Socket clientSocket;
     private ArrayList<ClientHandler> listOfClients;
     private static int numberOfPlayers = 0;
-    private int playersNeededToStart;
+    private final int playersNeededToStart;
 
     /**
      * Create a server with the number of players needed to start a new game
@@ -78,7 +79,6 @@ public class Server {
     private void prepareServerForNewGame() {
         System.out.println("Game launched, starting a new waiting list");
         listOfClients = new ArrayList<>();
-        numberOfPlayers = 0;
     }
 
 
@@ -133,8 +133,13 @@ public class Server {
                 output.newLine();
                 output.flush();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                checkClientConnections();
+                listOfClients.forEach(client-> client.sendPrivateMessage( "Client lost connection."));
             }
+        }
+
+        private void checkClientConnections() {
+            listOfClients.removeIf(clientHandler -> clientHandler.socket.isClosed());
         }
 
 
