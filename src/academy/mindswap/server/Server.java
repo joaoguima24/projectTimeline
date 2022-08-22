@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Server {
     private final ServerSocket serverSocket;
@@ -149,6 +150,15 @@ public class Server {
         protected void addMeToNewGame(){
             listOfClients.add(this);
             areWeReadyToStart();
+        }
+        public void readFromDataBase(){
+            File dataBase = new File("/Users/guimaj/Documents/Mindswap/projectTimeline/src/academy/mindswap/server/dataBase/db.txt");
+            try {
+                Scanner readFromDB = new Scanner(dataBase);
+
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

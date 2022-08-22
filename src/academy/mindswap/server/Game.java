@@ -35,6 +35,7 @@ public class Game implements Runnable{
         timelineDeck.add(timelineDeck.size()-1, giveCard());
         startPlayersDeck();
         currentClient = listOfClients.get((int) Math.abs(Math.random()*listOfClients.size()));
+        broadCastMessage("WELCOME TO OUR GAME, LET'S HAVE SOME FUN !!");
         playRound();
     }
     private void shuffleCards(List<Card> cards){
@@ -115,36 +116,20 @@ public class Game implements Runnable{
         if (message.equals("")){
             invalidPlay();
         }
-        //First letter(Card) + positions= A 1,2
-        String regexBefore = "[0-9]*(?=,)";
-        String regexAfter = "0-9]*(?!,)";
+        String regexBefore = "[0-9]+";
         Pattern patternBefore = Pattern.compile(regexBefore);
-        Pattern patternAfter = Pattern.compile(regexAfter);
         Matcher matcherBefore = patternBefore.matcher(message);
-        Matcher matcherAfter = patternAfter.matcher(message);
-        //LETTERS
         String messageCardPosition = message.trim().toLowerCase().substring(0,1);
         int indexCardByAsciiVal = messageCardPosition.charAt(0) - 97;
         if (indexCardByAsciiVal < 0 || indexCardByAsciiVal >= currentClient.getDeck().size()){
             invalidPlay();
         }
         int position1 = 0;
-        int position2 = 0;// parse to int
-
         if(matcherBefore.find()){
             position1 = Integer.parseInt(matcherBefore.group());
         }
-        if(matcherAfter.find()){
-            position2 = Integer.parseInt(matcherAfter.group());
-        }
-
-        // while regex is not working !!!!
-
-        position2 = position1 +1;
-
-        //ATTENTION TO THIS !!!!
-
-        if (position1 < 0 || position2 > timelineDeck.size()|| (position2 - position1 != 1)){
+        int position2 = position1 + 1;
+        if (position1 < 0 || position2 > timelineDeck.size()){
             invalidPlay();
         }
         validatePlay(indexCardByAsciiVal, position1, position2);
