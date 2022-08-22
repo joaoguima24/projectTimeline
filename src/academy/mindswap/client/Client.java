@@ -68,6 +68,10 @@ public class Client {
         private void listenMessage() {
             try {
                 String inputFromServer = input.readLine();
+                if (inputFromServer == null){
+                    System.out.println("You have been disconnected...");
+                    return;
+                }
                 System.out.println(inputFromServer);
                 canIPlay(inputFromServer);
                 listenMessage();
