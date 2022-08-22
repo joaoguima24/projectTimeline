@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Fixed the bug when client don't want to play again , we disconnected him and he receives a message, not a nullpointer.">
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="a lot of cards">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/card/Card.java" afterDir="false" />
     </list>
@@ -49,7 +49,20 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.academy.mindswap.client.Client">
+  <component name="RunManager" selected="Application.Card">
+    <configuration name="Card" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="academy.mindswap.card.Card" />
+      <module name="projectTimeline" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="academy.mindswap.card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.Main" />
       <module name="projectTimeline" />
@@ -88,15 +101,16 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Card" />
       <item itemvalue="Application.academy.mindswap.client.Client" />
       <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Card" />
         <item itemvalue="Application.academy.mindswap.client.Client" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.academy.mindswap.client.Client" />
         <item itemvalue="Application.academy.mindswap.client.Client" />
       </list>
     </recent_temporary>
@@ -159,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661161498028</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="a lot of cards">
+      <created>1661187454621</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1661187454623</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -215,6 +236,7 @@
     <MESSAGE value="refactor to the game logic" />
     <MESSAGE value="Game ready to play, now it's time to improve the design" />
     <MESSAGE value="If client disconnect while playing the game is prepared to shift client and keep going&#10;Added a method asking all of the clients in the game if they want to play again" />
-    <option name="LAST_COMMIT_MESSAGE" value="If client disconnect while playing the game is prepared to shift client and keep going&#10;Added a method asking all of the clients in the game if they want to play again" />
+    <MESSAGE value="a lot of cards" />
+    <option name="LAST_COMMIT_MESSAGE" value="a lot of cards" />
   </component>
 </project>
