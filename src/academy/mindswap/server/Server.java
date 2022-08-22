@@ -4,6 +4,9 @@ import academy.mindswap.util.Util;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.Array;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,9 +15,9 @@ public class Server {
     private final ServerSocket serverSocket;
 
     private Socket clientSocket;
+    private ArrayList<ClientHandler> playersOnline;
     private ArrayList<ClientHandler> listOfClients;
     private static int numberOfPlayers = 0;
-    private final int playersNeededToStart;
 
     /**
      * Create a server with the number of players needed to start a new game
@@ -23,11 +26,11 @@ public class Server {
      * Call a method that will listen the players trying to connect to server (acceptClient())
      */
 
-    public Server(int playersToStart) {
+    public Server() {
         try {
-            this.playersNeededToStart = playersToStart;
             this.serverSocket = new ServerSocket(8080);
             this.listOfClients = new ArrayList<>();
+            this.playersOnline = new ArrayList<>();
             acceptClient();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -47,12 +50,11 @@ public class Server {
         System.out.println(Util.WAITING_CONNECTIONS);
         clientSocket = serverSocket.accept();
         ClientHandler client = new ClientHandler(clientSocket , Util.GENERIC_PLAYER_NAME+(++numberOfPlayers));
-        listOfClients.add(client);
-        client.sendPrivateMessage(client.getName() + Util.WELCOME_NEW_PLAYER);
-        System.out.println(client.getName() + Util.NEW_CONNECTION);
-        areWeReadyToStart();
+        new Thread(new Login(client)).start();
         acceptClient();
     }
+
+
 
     /**
      * If we had the players that we need to start:
@@ -60,10 +62,20 @@ public class Server {
      * And we will call a method that prepares the main thread for a new game
      */
     private void areWeReadyToStart() {
+        int playersNeededToStart = getPlayersNeededToStart();
         if (listOfClients.size() >= playersNeededToStart){
                 new Thread(new Game(listOfClients)).start();
                 prepareServerForNewGame();
         }
+    }
+
+    private int getPlayersNeededToStart() {
+        int playersNeededToStart = 0;
+        for (ClientHandler clientHandler : playersOnline) {
+           playersNeededToStart += clientHandler.numberOfPlayersWanted;
+        }
+        playersNeededToStart /= playersOnline.size();
+        return Math.max(playersNeededToStart, 2);
     }
 
     /**
@@ -79,7 +91,10 @@ public class Server {
         private BufferedReader input;
         private BufferedWriter output;
         final Socket socket;
+        private int numberOfPlayersWanted;
+        private int numberOfCardsWanted;
         private String name;
+        private int wins;
         private List<Card> deck;
 
         /**
@@ -92,6 +107,38 @@ public class Server {
             this.name = name;
             startBuffers();
             preparePlayerDeckForNextGame();
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setWins(int wins) {
+            this.wins = wins;
+        }
+
+        public int getNumberOfCardsWanted() {
+            return numberOfCardsWanted;
+        }
+
+        public ArrayList<ClientHandler> getPlayersOnline(){
+            return playersOnline;
+        }
+
+        public void setNumberOfPlayersWanted(int numberOfPlayersWanted) {
+            this.numberOfPlayersWanted = numberOfPlayersWanted;
+        }
+
+        public void setNumberOfCardsWanted(int numberOfCardsWanted) {
+            this.numberOfCardsWanted = numberOfCardsWanted;
+        }
+
+        protected void addClientToLobby(ClientHandler client) {
+            listOfClients.add(client);
+            playersOnline.add(client);
+            client.sendPrivateMessage(client.getName() + Util.WELCOME_NEW_PLAYER);
+            System.out.println(client.getName() + Util.NEW_CONNECTION);
+            areWeReadyToStart();
         }
 
         /**
@@ -130,6 +177,7 @@ public class Server {
 
         private void checkClientConnections() {
             listOfClients.removeIf(clientHandler -> clientHandler.socket.isClosed());
+            playersOnline.removeIf(clientHandler -> clientHandler.socket.isConnected());
         }
 
 
@@ -151,15 +199,28 @@ public class Server {
             listOfClients.add(this);
             areWeReadyToStart();
         }
-        public void readFromDataBase(){
+        protected synchronized List<String> importDataBaseFromFileToList(){
             File dataBase = new File("/Users/guimaj/Documents/Mindswap/projectTimeline/src/academy/mindswap/server/dataBase/db.txt");
+            List<String> db = new ArrayList<>();
             try {
                 Scanner readFromDB = new Scanner(dataBase);
-
+                while(readFromDB.hasNextLine()){
+                    db.add(readFromDB.nextLine());
+                }
+                readFromDB.close();
+                return db;
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }
-
+        protected synchronized void addAndExportDataBaseFromListToFile(String clientToAdd){
+            try {
+                List<String> db = importDataBaseFromFileToList();
+                db.add(clientToAdd);
+                Files.write(Path.of("/Users/guimaj/Documents/Mindswap/projectTimeline/src/academy/mindswap/server/dataBase/db.txt"),db);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

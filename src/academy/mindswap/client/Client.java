@@ -12,7 +12,6 @@ public class Client {
         private Socket socket;
         private BufferedReader keyboardReader;
         private BufferedReader input;
-        private String name;
 
     /**
      *Starting our client side
@@ -88,7 +87,15 @@ public class Client {
     private void canIPlay(String inputFromServer) {
         if (inputFromServer.equalsIgnoreCase(Util.ITS_YOUR_TURN_TO_PLAY)
                 || inputFromServer.equalsIgnoreCase("Invalid play, please try again")
-                || inputFromServer.equalsIgnoreCase("Do you want to play again?")){
+                || inputFromServer.equalsIgnoreCase("Do you want to play again?")
+                || inputFromServer.equalsIgnoreCase("Insert your password (max 20 characters):")
+                || inputFromServer.equalsIgnoreCase("Insert the number of players that you would like to play, between 2 and 8 inclusive")
+                || inputFromServer.equalsIgnoreCase("Insert the number of cards that you would like to have in the deck, between 3 and 6 inclusive")
+                || inputFromServer.equalsIgnoreCase("Invalid nickname please try again.")
+                || inputFromServer.equalsIgnoreCase("Invalid password please try again.")
+                || inputFromServer.equalsIgnoreCase("Invalid number of players please try again.")
+                || inputFromServer.equalsIgnoreCase("Invalid number of cards please try again.")
+                ||inputFromServer.equalsIgnoreCase("Insert your nickname (max 25 characters):")) {
             sendMessageToServer();
         }
     }

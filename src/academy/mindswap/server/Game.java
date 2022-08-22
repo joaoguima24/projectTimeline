@@ -11,12 +11,11 @@ import java.util.regex.Pattern;
 
 //gm3nd3s code
 public class Game implements Runnable{
-    private static final int NUMBER_OF_CARDS_PER_PLAYER = 1;
-    private ArrayList<Server.ClientHandler> listOfClients;
+    private final ArrayList<Server.ClientHandler> listOfClients;
     private Server.ClientHandler currentClient;
     private Server.ClientHandler winner = null;
-    private ArrayList<Card> gameDeck;
-    private List<Card> timelineDeck;
+    private final ArrayList<Card> gameDeck;
+    private final List<Card> timelineDeck;
 
     public Game(ArrayList<Server.ClientHandler> listOfClients) {
         this.listOfClients = listOfClients;
@@ -42,14 +41,24 @@ public class Game implements Runnable{
         Collections.shuffle(cards);
     };
     private void startPlayersDeck(){
+        int numberOfCardsPerPlayer = getNumberOfCardsPerPlayer();
         for (Server.ClientHandler client : listOfClients){
             if (client.getDeck().isEmpty() || client.getDeck() == null){
                 client.preparePlayerDeckForNextGame();
             }
-            for (int i = 0; client.getDeck().size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
+            for (int i = 0; client.getDeck().size() < numberOfCardsPerPlayer; i++){
                 client.getDeck().add(giveCard());
             }
         }
+    }
+
+    private int getNumberOfCardsPerPlayer() {
+        int numberOfCards=0;
+        for (Server.ClientHandler client : listOfClients){
+            numberOfCards+=client.getNumberOfCardsWanted();
+        }
+        numberOfCards /= listOfClients.size();
+        return numberOfCards;
     }
 
     private void playRound(){
