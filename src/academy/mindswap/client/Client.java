@@ -1,4 +1,5 @@
 package academy.mindswap.client;
+import academy.mindswap.server.Server;
 import academy.mindswap.util.Util;
 
 import java.io.*;
@@ -67,6 +68,10 @@ public class Client {
         private void listenMessage() {
             try {
                 String inputFromServer = input.readLine();
+                if (inputFromServer == null){
+                    System.out.println("You have been disconnected...");
+                    return;
+                }
                 System.out.println(inputFromServer);
                 canIPlay(inputFromServer);
                 listenMessage();
@@ -81,7 +86,9 @@ public class Client {
      * @param inputFromServer
      */
     private void canIPlay(String inputFromServer) {
-        if (inputFromServer.equalsIgnoreCase(Util.ITS_YOUR_TURN_TO_PLAY) || inputFromServer.equalsIgnoreCase("Invalid play, please try again")){
+        if (inputFromServer.equalsIgnoreCase(Util.ITS_YOUR_TURN_TO_PLAY)
+                || inputFromServer.equalsIgnoreCase("Invalid play, please try again")
+                || inputFromServer.equalsIgnoreCase("Do you want to play again?")){
             sendMessageToServer();
         }
     }

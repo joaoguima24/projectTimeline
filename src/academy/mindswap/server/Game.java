@@ -4,6 +4,7 @@ package academy.mindswap.server;
 import academy.mindswap.card.Card;
 import academy.mindswap.util.Util;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,22 +25,37 @@ public class Game implements Runnable{
         timelineDeck.add(new Card ("Timeline:",0));
         timelineDeck.add(new Card ("End:",4000));
     }
+    @Override
+    public void run() {
+        startGame();
+    }
 
     protected void startGame(){
         shuffleCards(gameDeck);
         timelineDeck.add(timelineDeck.size()-1, giveCard());
         startPlayersDeck();
         currentClient = listOfClients.get((int) Math.abs(Math.random()*listOfClients.size()));
+        broadCastMessage("WELCOME TO OUR GAME, LET'S HAVE SOME FUN !!");
         playRound();
     }
     private void shuffleCards(List<Card> cards){
         Collections.shuffle(cards);
     };
+    private void startPlayersDeck(){
+        for (Server.ClientHandler client : listOfClients){
+            if (client.getDeck().isEmpty() || client.getDeck() == null){
+                client.preparePlayerDeckForNextGame();
+            }
+            for (int i = 0; client.getDeck().size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
+                client.getDeck().add(giveCard());
+            }
+        }
+    }
 
     private void playRound(){
         if(checkWinner()){
-            winner = listOfClients.stream().filter(client->client.getDeck().isEmpty()).findFirst().get();
             broadCastMessage("The Winner is: " + winner.getName());
+            doYouWantToPlayAgain();
             return;
         }
         broadCastMessage("\n ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. TIMELINE ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. \n");
@@ -48,23 +64,34 @@ public class Game implements Runnable{
         sendDecks();
         changeCurrentPlayer();
         receiveMessage();
+    }
+    private boolean checkWinner() {
+        if (listOfClients.size() <= 1){
+            winner = listOfClients.get(0);
+            return true;
+        }
+        if (listOfClients.stream().anyMatch(client->client.getDeck().isEmpty())){
+            winner = listOfClients.stream().filter(client->client.getDeck().isEmpty()).findFirst().get();
+            return true;
+        }
+        return false;
+    }
+    private void sendTimeline() {
+        broadCastMessage(timelineDeck.toString());
+    }
 
-        /*if (validatePlay(currentMessage)){
-            updateDeck();
-            updateTimeline();
-            changeCurrentPlayer();
-            playRound();
-        }*/
+    private void sendDecks() {
+        for (Server.ClientHandler client : listOfClients){
+            client.sendPrivateMessage(client.getDeck().toString());
+        }
     }
 
     private void validatePlay(int indexCard, int position1, int position2){
-        //update timeline and deck and call playRound()
         int cardYear = currentClient.getDeck().get(indexCard).getYear();
         int firstCardYear = timelineDeck.get(position1).getYear();
         int secondCardYear = timelineDeck.get(position2).getYear();
-
         if (cardYear < firstCardYear || cardYear > secondCardYear){
-            currentClient.sendPrivateMessage("You played: " + cardYear + " and failed");
+            currentClient.sendPrivateMessage("You played: " + gameDeck.get(indexCard) + " and failed");
             currentClient.getDeck().remove(indexCard);
             currentClient.getDeck().add(giveCard());
             playRound();
@@ -74,8 +101,14 @@ public class Game implements Runnable{
         playRound();
     }
 
-    private void receiveMessage() {
-        validateMessage(currentClient.listenToClient());
+    private void receiveMessage(){
+        try {
+            validateMessage(currentClient.listenToClient());
+        } catch (IOException e) {
+            listOfClients.remove(currentClient);
+            broadCastMessage(currentClient.getName() + " Lost connection");
+            playRound();
+        }
     }
 
     private void validateMessage(String message) {
@@ -83,36 +116,20 @@ public class Game implements Runnable{
         if (message.equals("")){
             invalidPlay();
         }
-        //First letter(Card) + positions= A 1,2
-        String regexBefore = "[0-9]*(?=,)";
-        String regexAfter = "0-9]*(?!,)";
+        String regexBefore = "[0-9]+";
         Pattern patternBefore = Pattern.compile(regexBefore);
-        Pattern patternAfter = Pattern.compile(regexAfter);
         Matcher matcherBefore = patternBefore.matcher(message);
-        Matcher matcherAfter = patternAfter.matcher(message);
-        //LETTERS
         String messageCardPosition = message.trim().toLowerCase().substring(0,1);
         int indexCardByAsciiVal = messageCardPosition.charAt(0) - 97;
         if (indexCardByAsciiVal < 0 || indexCardByAsciiVal >= currentClient.getDeck().size()){
             invalidPlay();
         }
         int position1 = 0;
-        int position2 = 0;// parse to int
-
         if(matcherBefore.find()){
             position1 = Integer.parseInt(matcherBefore.group());
         }
-        if(matcherAfter.find()){
-            position2 = Integer.parseInt(matcherAfter.group());
-        }
-
-        // while regex is not working !!!!
-
-        position2 = position1 +1;
-
-        //ATTENTION TO THIS !!!!
-
-        if (position1 < 0 || position2 > timelineDeck.size()|| (position2 - position1 != 1)){
+        int position2 = position1 + 1;
+        if (position1 < 0 || position2 > timelineDeck.size()){
             invalidPlay();
         }
         validatePlay(indexCardByAsciiVal, position1, position2);
@@ -137,49 +154,54 @@ public class Game implements Runnable{
         sendMessageToPlayerTurn();
     }
 
-    private void sendTimeline() {
-        broadCastMessage(timelineDeck.toString());
-    }
 
-    private void sendDecks() {
-        for (Server.ClientHandler client : listOfClients){
-            client.sendPrivateMessage(client.getDeck().toString());
-        }
-    }
-    private void startPlayersDeck(){
-        for (Server.ClientHandler client : listOfClients){
-            if (client.getDeck() == null){
-                client.preparePlayerDeckForNextGame();
-            }
-            for (int i = 0; client.getDeck().size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
-                client.getDeck().add(giveCard());
-            }
-        }
-    }
+
     private Card giveCard(){
         return gameDeck.remove(0);
     }
 
-    private boolean checkWinner() {
-        return listOfClients.stream()
-                .anyMatch(client->client.getDeck().isEmpty());
 
-        /*for (Server.ClientHandler client : listOfClients){
-            if(client.getDeck().size() == 0){
-                this.winner = client;
-                return;
-            }
-        }
-
-         */
-    }
-    protected void broadCastMessage (String message){
+    private void broadCastMessage (String message){
         listOfClients.forEach(client -> client.sendPrivateMessage(message));
     }
-
-    @Override
-    public void run() {
-        startGame();
-
+    private void doYouWantToPlayAgain(){
+        listOfClients.forEach(client->{
+            client.sendPrivateMessage("Do you want to play again?");
+            try {
+                if (!client.listenToClient().equalsIgnoreCase("yes")){
+                    client.socket.close();
+                }
+                client.addMeToNewGame();
+            } catch (IOException e) {
+                throw new RuntimeException("Did not respond, so get timed out");
+            }
+        });
     }
 }
+/*
+________________________________
+| Index 0                  | | Index 1                  || Index 2                  |
+| first personal computer  | | first personal computer  || first personal computer  |
+| Year                     | | Year                     || Year                     |
+__________________________________
+
+----------------
+|Position 0     |
+|     ^         |dsaldjasdhasjdhaskdjlhalskdhasjdk
+|    /  \       |
+|    1906       |
+_________________
+----------------
+|Position 0     |
+|     ^         |dsaldjasdhasjdhaskdjlhalskdhasjdk
+|    /  \       |
+|    1906       |
+_________________
+----------------
+|Position 0     |
+|     ^         |dsaldjasdhasjdhaskdjlhalskdhasjdk
+|    /  \       |
+|    1906       |
+_________________
+
+ */

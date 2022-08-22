@@ -1,25 +1,20 @@
 package academy.mindswap.server;
-
-
 import academy.mindswap.card.Card;
 import academy.mindswap.util.Util;
-
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.Scanner;
 
 public class Server {
-    private ServerSocket serverSocket;
+    private final ServerSocket serverSocket;
 
     private Socket clientSocket;
     private ArrayList<ClientHandler> listOfClients;
     private static int numberOfPlayers = 0;
-    private int playersNeededToStart;
+    private final int playersNeededToStart;
 
     /**
      * Create a server with the number of players needed to start a new game
@@ -65,10 +60,9 @@ public class Server {
      * And we will call a method that prepares the main thread for a new game
      */
     private void areWeReadyToStart() {
-        if (listOfClients.size() == playersNeededToStart){
-            new Thread(new Game(listOfClients)).start();
-            prepareServerForNewGame();
-
+        if (listOfClients.size() >= playersNeededToStart){
+                new Thread(new Game(listOfClients)).start();
+                prepareServerForNewGame();
         }
     }
 
@@ -78,14 +72,13 @@ public class Server {
     private void prepareServerForNewGame() {
         System.out.println("Game launched, starting a new waiting list");
         listOfClients = new ArrayList<>();
-        numberOfPlayers = 0;
     }
 
 
     public class ClientHandler {
         private BufferedReader input;
         private BufferedWriter output;
-        private final Socket socket;
+        final Socket socket;
         private String name;
         private List<Card> deck;
 
@@ -93,8 +86,6 @@ public class Server {
          * Constructor for our client
          * That will hold the socket we will use to communicate
          * And the name of the user
-         * @param socket
-         * @param name
          */
         public ClientHandler(Socket socket, String name) {
             this.socket = socket;
@@ -125,7 +116,6 @@ public class Server {
 
         /**
          * Using our output buffer to send private messages to the client
-         * @param message
          */
         protected void sendPrivateMessage(String message) {
             try {
@@ -133,8 +123,13 @@ public class Server {
                 output.newLine();
                 output.flush();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                checkClientConnections();
+                listOfClients.forEach(client-> client.sendPrivateMessage( "Client lost connection."));
             }
+        }
+
+        private void checkClientConnections() {
+            listOfClients.removeIf(clientHandler -> clientHandler.socket.isClosed());
         }
 
 
@@ -142,13 +137,8 @@ public class Server {
          * Using our input buffer to listen a communication of a client
          * @return message
          */
-        protected String listenToClient() {
-            try {
-                return input.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
+        protected String listenToClient() throws IOException {
+            return input.readLine();
         }
         public void preparePlayerDeckForNextGame(){
             this.deck = new ArrayList<>();
@@ -156,6 +146,19 @@ public class Server {
 
         public List<Card> getDeck() {
             return deck;
+        }
+        protected void addMeToNewGame(){
+            listOfClients.add(this);
+            areWeReadyToStart();
+        }
+        public void readFromDataBase(){
+            File dataBase = new File("/Users/guimaj/Documents/Mindswap/projectTimeline/src/academy/mindswap/server/dataBase/db.txt");
+            try {
+                Scanner readFromDB = new Scanner(dataBase);
+
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

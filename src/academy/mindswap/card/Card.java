@@ -48,7 +48,6 @@ public class Card {
 
     @Override
     public String toString() {
-        int tempIndex = 0;
         return  description + '\'' +
                 ", year=" + year +
                 '}';
