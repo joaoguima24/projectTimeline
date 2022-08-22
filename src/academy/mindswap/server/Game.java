@@ -4,13 +4,14 @@ package academy.mindswap.server;
 import academy.mindswap.card.Card;
 import academy.mindswap.util.Util;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //gm3nd3s code
 public class Game implements Runnable{
-    private static final int NUMBER_OF_CARDS_PER_PLAYER = 4;
+    private static final int NUMBER_OF_CARDS_PER_PLAYER = 1;
     private ArrayList<Server.ClientHandler> listOfClients;
     private Server.ClientHandler currentClient;
     private Server.ClientHandler winner = null;
@@ -41,7 +42,7 @@ public class Game implements Runnable{
     };
     private void startPlayersDeck(){
         for (Server.ClientHandler client : listOfClients){
-            if (client.getDeck() == null){
+            if (client.getDeck().isEmpty() || client.getDeck() == null){
                 client.preparePlayerDeckForNextGame();
             }
             for (int i = 0; client.getDeck().size() < NUMBER_OF_CARDS_PER_PLAYER; i++){
@@ -52,8 +53,8 @@ public class Game implements Runnable{
 
     private void playRound(){
         if(checkWinner()){
-            winner = listOfClients.stream().filter(client->client.getDeck().isEmpty()).findFirst().get();
             broadCastMessage("The Winner is: " + winner.getName());
+            doYouWantToPlayAgain();
             return;
         }
         broadCastMessage("\n ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. TIMELINE ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. \n");
@@ -64,7 +65,15 @@ public class Game implements Runnable{
         receiveMessage();
     }
     private boolean checkWinner() {
-        return listOfClients.stream().anyMatch(client->client.getDeck().isEmpty());
+        if (listOfClients.size() <= 1){
+            winner = listOfClients.get(0);
+            return true;
+        }
+        if (listOfClients.stream().anyMatch(client->client.getDeck().isEmpty())){
+            winner = listOfClients.stream().filter(client->client.getDeck().isEmpty()).findFirst().get();
+            return true;
+        }
+        return false;
     }
     private void sendTimeline() {
         broadCastMessage(timelineDeck.toString());
@@ -80,7 +89,6 @@ public class Game implements Runnable{
         int cardYear = currentClient.getDeck().get(indexCard).getYear();
         int firstCardYear = timelineDeck.get(position1).getYear();
         int secondCardYear = timelineDeck.get(position2).getYear();
-
         if (cardYear < firstCardYear || cardYear > secondCardYear){
             currentClient.sendPrivateMessage("You played: " + gameDeck.get(indexCard) + " and failed");
             currentClient.getDeck().remove(indexCard);
@@ -92,8 +100,14 @@ public class Game implements Runnable{
         playRound();
     }
 
-    private void receiveMessage() {
-        validateMessage(currentClient.listenToClient());
+    private void receiveMessage(){
+        try {
+            validateMessage(currentClient.listenToClient());
+        } catch (IOException e) {
+            listOfClients.remove(currentClient);
+            broadCastMessage(currentClient.getName() + " Lost connection");
+            playRound();
+        }
     }
 
     private void validateMessage(String message) {
@@ -162,11 +176,22 @@ public class Game implements Runnable{
     }
 
 
-    protected void broadCastMessage (String message){
+    private void broadCastMessage (String message){
         listOfClients.forEach(client -> client.sendPrivateMessage(message));
     }
-
-
+    private void doYouWantToPlayAgain(){
+        listOfClients.forEach(client->{
+            client.sendPrivateMessage("Do you want to play again?");
+            try {
+                if (!client.listenToClient().equalsIgnoreCase("yes")){
+                    client.socket.close();
+                }
+                client.addMeToNewGame();
+            } catch (IOException e) {
+                throw new RuntimeException("Did not respond, so get timed out");
+            }
+        });
+    }
 }
 /*
 ________________________________
@@ -174,4 +199,24 @@ ________________________________
 | first personal computer  | | first personal computer  || first personal computer  |
 | Year                     | | Year                     || Year                     |
 __________________________________
+
+----------------
+|Position 0     |
+|     ^         |dsaldjasdhasjdhaskdjlhalskdhasjdk
+|    /  \       |
+|    1906       |
+_________________
+----------------
+|Position 0     |
+|     ^         |dsaldjasdhasjdhaskdjlhalskdhasjdk
+|    /  \       |
+|    1906       |
+_________________
+----------------
+|Position 0     |
+|     ^         |dsaldjasdhasjdhaskdjlhalskdhasjdk
+|    /  \       |
+|    1906       |
+_________________
+
  */

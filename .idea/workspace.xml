@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="refactor to the game logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" afterDir="false" />
     </list>
@@ -129,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661067308390</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Game ready to play, now it's time to improve the design">
+      <created>1661104341272</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1661104341272</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,6 +190,7 @@
     <MESSAGE value="Implementing Game as a new Thread" />
     <MESSAGE value="start game" />
     <MESSAGE value="refactor to the game logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor to the game logic" />
+    <MESSAGE value="Game ready to play, now it's time to improve the design" />
+    <option name="LAST_COMMIT_MESSAGE" value="Game ready to play, now it's time to improve the design" />
   </component>
 </project>

@@ -1,21 +1,14 @@
 package academy.mindswap.server;
-
-
 import academy.mindswap.card.Card;
-import academy.mindswap.client.Client;
 import academy.mindswap.util.Util;
-
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 
 public class Server {
-    private ServerSocket serverSocket;
+    private final ServerSocket serverSocket;
 
     private Socket clientSocket;
     private ArrayList<ClientHandler> listOfClients;
@@ -66,10 +59,9 @@ public class Server {
      * And we will call a method that prepares the main thread for a new game
      */
     private void areWeReadyToStart() {
-        if (listOfClients.size() == playersNeededToStart){
-            new Thread(new Game(listOfClients)).start();
-            prepareServerForNewGame();
-
+        if (listOfClients.size() >= playersNeededToStart){
+                new Thread(new Game(listOfClients)).start();
+                prepareServerForNewGame();
         }
     }
 
@@ -85,7 +77,7 @@ public class Server {
     public class ClientHandler {
         private BufferedReader input;
         private BufferedWriter output;
-        private final Socket socket;
+        final Socket socket;
         private String name;
         private List<Card> deck;
 
@@ -93,8 +85,6 @@ public class Server {
          * Constructor for our client
          * That will hold the socket we will use to communicate
          * And the name of the user
-         * @param socket
-         * @param name
          */
         public ClientHandler(Socket socket, String name) {
             this.socket = socket;
@@ -125,7 +115,6 @@ public class Server {
 
         /**
          * Using our output buffer to send private messages to the client
-         * @param message
          */
         protected void sendPrivateMessage(String message) {
             try {
@@ -147,13 +136,8 @@ public class Server {
          * Using our input buffer to listen a communication of a client
          * @return message
          */
-        protected String listenToClient() {
-            try {
-                return input.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
+        protected String listenToClient() throws IOException {
+            return input.readLine();
         }
         public void preparePlayerDeckForNextGame(){
             this.deck = new ArrayList<>();
@@ -161,6 +145,10 @@ public class Server {
 
         public List<Card> getDeck() {
             return deck;
+        }
+        protected void addMeToNewGame(){
+            listOfClients.add(this);
+            areWeReadyToStart();
         }
 
     }
