@@ -1,9 +1,16 @@
 package academy.mindswap.client;
 import academy.mindswap.server.Server;
+import academy.mindswap.server.dataBase.gui.Gui;
 import academy.mindswap.util.Util;
 
+import javax.swing.*;
+import javax.swing.text.DefaultStyledDocument;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
+import java.text.ParseException;
 
 public class Client {
 
@@ -13,6 +20,11 @@ public class Client {
         private BufferedReader keyboardReader;
         private BufferedReader input;
         private String name;
+        private JFrame frame;
+        private JTextField textField;
+        private JLayeredPane layeredPanel;
+        private JButton button;
+        private JLabel label;
 
     /**
      *Starting our client side
@@ -26,9 +38,178 @@ public class Client {
      * And start waiting for communication
      */
     public Client() {
-            connectToServer();
-            listenMessage();
+        JFrame frame = new JFrame("Timeline");
+        startGuiWindow(frame);
+
+        connectToServer();
+        listenMessage();
         }
+
+
+
+    private void startGuiWindow(JFrame frame) {
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(new Dimension(1000, 1000));
+        frame.setResizable(true);
+        layeredPanel = new JLayeredPane();
+        frame.add(layeredPanel);
+
+        label = new JLabel(Gui.BACKGROUND_IMAGE_TIMELINE);
+        label.setVisible(true);
+        label.setSize(1000,1000);
+
+        button = new JButton(Gui.START_BUTTON_IMAGE);
+        button.setVisible(true);
+        button.setBounds(350, 600, 300, 100);
+        layeredPanel.add(label, 1);
+        layeredPanel.add(button, 0);
+
+        frame.setVisible(true);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                welcomeScreen(frame);
+
+                try {
+                    output.write("SEND_RULES");
+                    output.newLine();
+                    output.flush();
+                } catch (IOException ex) {
+                    layeredPanel.add(new JPopupMenu().add(new JMenuItem("Error")), 0);
+                }
+            }
+        });
+    }
+
+    private void welcomeScreen(JFrame frame) {
+        layeredPanel.removeAll();
+        label = new JLabel();
+        layeredPanel.setLayout(new BorderLayout());
+        JLabel welcomeLabel = new JLabel();
+        JTextPane rulesLabel = new JTextPane();
+        button = new JButton("Let's Start!");
+
+
+
+        label.setPreferredSize(new Dimension(frame.getWidth(), 700));
+        label.setBackground(Color.GRAY);
+        label.setOpaque(true);
+        label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+
+        createWelcomeLabel(welcomeLabel);
+        createRulesLabel(rulesLabel);
+        createLetsPlayButton(button);
+
+
+        label.add(rulesLabel);
+        label.add(button, BorderLayout.SOUTH);
+        label.add(welcomeLabel, BorderLayout.NORTH);
+        label.setVisible(true);
+        layeredPanel.add(label, BorderLayout.CENTER);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setLoginPage(frame);
+            }
+        });
+
+
+    }
+
+    private void setLoginPage(JFrame frame) {
+        layeredPanel.removeAll();
+        label = new JLabel();
+        label.setBackground(Color.GRAY);
+        label.setOpaque(true);
+        label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        label.setText("In order to Play you need to login first");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.TOP);
+        label.setFont(new Font("Comic sans", Font.BOLD, 20));
+        label.setVisible(true);
+        usernameAndPasswordLabel(label);
+
+
+        layeredPanel.add(label, BorderLayout.CENTER);
+    }
+
+    private void usernameAndPasswordLabel(JLabel label) {
+        JLabel usernameLabel = new JLabel("Username");
+        JLabel passwordLabel = new JLabel("Password");
+
+        usernameLabel.setBounds(300,250, 300, 60);
+        passwordLabel.setBounds(300,350, 300, 60);
+        usernameLabel.setFont(new Font("Comic sans", Font.BOLD, 20));
+        passwordLabel.setFont(new Font("Comic sans", Font.BOLD, 20));
+        usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        usernameLabel.setVisible(true);
+        passwordLabel.setVisible(true);
+
+
+        JTextField usernameField = new JTextField("");
+        JTextField passwordField = new JTextField("");
+        usernameField.setBounds(300,300, 300, 60);
+        passwordField.setBounds(300,400, 300, 60);
+
+        JButton loginButton = new JButton("Login");
+        loginButton.setBounds(375,500, 150, 60);
+        loginButton.setHorizontalAlignment(SwingConstants.CENTER);
+        loginButton.setFont(new Font("Comic sans", Font.BOLD, 20));
+        loginButton.setVisible(true);
+
+
+        label.add(usernameField);
+        label.add(passwordField);
+        label.add(usernameLabel);
+        label.add(passwordLabel);
+        label.add(loginButton);
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = passwordField.getText();
+                sendMessageToServer(username);
+                sendMessageToServer(password);
+        }
+        });
+    }
+
+    private void createRulesLabel(JTextPane label) {
+        label.setFont(new Font("Arial", Font.PLAIN, 15));
+        label.setOpaque(false);
+        label.setStyledDocument(new DefaultStyledDocument());
+        label.setBounds(100,100,800,600);
+
+
+
+        label.setText(Util.RULES);
+
+        label.setVisible(true);
+
+    }
+
+    private void createLetsPlayButton(JButton button) {
+        button.setFont(new Font("Comic sans", Font.BOLD, 30));
+        button.setBounds((1000 - 200) / 2, 800, 200,70);
+        button.setHorizontalAlignment(SwingConstants.CENTER);
+        button.setVerticalAlignment(SwingConstants.CENTER);
+        button.setVisible(true);
+
+    }
+
+    private void createWelcomeLabel(JLabel welcomeLabel) {
+        welcomeLabel.setSize(label.getWidth(), 70);
+        welcomeLabel.setBackground(new Color(0, 0,30));
+        welcomeLabel.setForeground(new Color(0, 50, 255));
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        welcomeLabel.setText("Welcome to Timeline");
+        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        welcomeLabel.setVerticalAlignment(SwingConstants.CENTER);
+        welcomeLabel.setOpaque(true);
+        welcomeLabel.setVisible(true);
+    }
 
     /**
      * Connect to the Server
@@ -38,6 +219,7 @@ public class Client {
             try {
                 this.socket = new Socket("localhost",8080);
                 startBuffers();
+
             } catch (IOException e) {
                 throw new RuntimeException("Not connected.");
             }
@@ -107,7 +289,16 @@ public class Client {
             throw new RuntimeException(e);
         }
     }
+    private void sendMessageToServer(String message) {
 
+        try {
+            output.write(message);
+            output.newLine();
+            output.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     /**
      * We will use our buffer to read the message from the keyboard
      * @return keyboard message

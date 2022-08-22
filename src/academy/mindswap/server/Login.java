@@ -1,23 +1,37 @@
 package academy.mindswap.server;
 
-import org.w3c.dom.xpath.XPathResult;
+import javax.swing.*;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.net.Socket;
 
-public class login implements Runnable{
+public class Login implements Runnable{
     private Server.ClientHandler client ;
     private String name;
     private boolean newPlayer;
     private int totalWins;
     private int wantedDeckLength;
     private int wantedNumberOfPlayersPerGame;
+    private JFrame frame;
 
-    public login(Server.ClientHandler client) {
+
+    public Login(Server.ClientHandler client) {
         this.client = client;
+        JFrame frame = new JFrame("Login");
     }
+    public Login() {
+    }
+
+
 
     @Override
     public void run() {
+
         try {
             client.sendPrivateMessage("Insert your nickname (max 25 characters):");
             analyseName(client.listenToClient());
