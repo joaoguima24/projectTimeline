@@ -165,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661212756529</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="GUI until lobby">
+      <created>1661214445663</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1661214445663</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -215,6 +222,7 @@
     <MESSAGE value="start game" />
     <MESSAGE value="refactor to the game logic" />
     <MESSAGE value="Visual Interface working until login send." />
-    <option name="LAST_COMMIT_MESSAGE" value="Visual Interface working until login send." />
+    <MESSAGE value="GUI until lobby" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI until lobby" />
   </component>
 </project>

@@ -25,6 +25,7 @@ public class Client {
         private JLayeredPane layeredPanel;
         private JButton button;
         private JLabel label;
+        private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     /**
      *Starting our client side
@@ -201,31 +202,98 @@ public class Client {
     }
 
     private void lobbyGame(JFrame frame,JLayeredPane layeredPanel) {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(new Dimension((int)screenSize.getWidth(),(int) screenSize.getHeight()));
         layeredPanel.removeAll();
         JLabel label = new JLabel();
         label.setBackground(Color.GRAY);
         label.setOpaque(true);
-        label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        label.setText("LOGIN SUCCESSFUL");
+
+        label.setText("");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.TOP);
         label.setFont(new Font("Comic sans", Font.ITALIC, 30));
         label.setVisible(true);
 
-        JLayer<JLabel> jLayer = new JLayer<JLabel>(label);
-        jLayer.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        jLayer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        //label.add(jLayer, BorderLayout.CENTER);
-
-
 
 
         layeredPanel.add(label, BorderLayout.CENTER);
 
+        timelineWindow(layeredPanel);
+
+
+
+
+
     }
+
+    private void timelineWindow(JLayeredPane layeredPanel) {
+        layeredPanel.setLayout(new GridLayout(3,6));
+
+        JPanel topLayer = new JPanel();
+        topLayer.setForeground(Color.BLACK);
+        topLayer.setBackground(Color.GRAY);
+        topLayer.setBounds(1, 1, (int)screenSize.getWidth(), 250);
+        topLayer.setOpaque(true);
+        topLayer.setVisible(true);
+        layeredPanel.add(topLayer, 0);
+        JPanel timelinePanel = new JPanel();
+        timelinePanel.setLayout(new GridLayout(1,5));
+        timelinePanel.setBackground(Color.darkGray);
+        timelinePanel.setForeground(Color.yellow);
+        timelinePanel.setBounds(100,100,1000,500);
+
+        timelinePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        timelinePanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+        timelinePanel.setAutoscrolls(true);
+        timelinePanel.setOpaque(true);
+
+        timelinePanel.setVisible(true);
+
+
+        JLabel card1 = new JLabel();
+        card1.setHorizontalAlignment(SwingConstants.CENTER);
+        card1.setHorizontalTextPosition(SwingConstants.CENTER);
+        card1.setBorder(BorderFactory.createLineBorder(Color.BLUE,2,true));
+        card1.setFont(new Font("Comic sans", Font.BOLD, 10));
+        card1.setOpaque(true);
+        card1.setBounds(50,50,400,200);
+        card1.setVisible(true);
+        JTextArea card1Text = new JTextArea("Card 1");
+        card1Text.setFont(new Font("Comic sans", Font.BOLD, 20));
+        card1Text.setOpaque(true);
+        card1Text.setBackground(Color.BLUE);
+        card1Text.setForeground(Color.WHITE);
+        card1Text.setBounds(50,50,200,200);
+        card1Text.setVisible(true);
+        card1.add(card1Text);
+
+
+        JLabel card2 = new JLabel();
+        card2.setHorizontalAlignment(SwingConstants.CENTER);
+        card2.setBorder(BorderFactory.createLineBorder(Color.BLUE,2));
+        card2.setFont(new Font("Comic sans", Font.BOLD, 10));
+        card2.setOpaque(true);
+        card2.setBounds(50,50,400,200);
+        card2.setVisible(true);
+        JTextArea card2Text = new JTextArea("Card 2");
+        card2Text.setFont(new Font("Comic sans", Font.BOLD, 20));
+        card2Text.setOpaque(true);
+        card2Text.setBackground(Color.BLUE);
+        card2Text.setForeground(Color.WHITE);
+        card2Text.setBounds(50,50,200,200);
+        card2Text.setVisible(true);
+        card2.add(card2Text);
+        timelinePanel.add(card1);
+        timelinePanel.add(card2);
+
+        timelinePanel.setVisible(true);
+        layeredPanel.setBounds(100,100,screenSize.width/4 * 3,screenSize.height/2);
+        layeredPanel.add(timelinePanel, 1);
+    }
+
+
+
+
 
     private void createRulesLabel(JTextPane label) {
         label.setFont(new Font("Arial", Font.PLAIN, 15));
