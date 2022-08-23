@@ -1,23 +1,13 @@
 package academy.mindswap.card;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 public class Card {
-
-    private String name ;
-    private String description;
-    private int year;
-
-    //public Card(String description, Integer year) {
-    //this.name = name;
-    //this.description = description;
-    //this.year = year;
-
-
+    private final String description;
+    private final int year;
     public Card(String description, int year) {
         this.description = description;
         this.year = year;
@@ -48,13 +38,17 @@ public class Card {
 
     @Override
     public String toString() {
-        return  description + '\'' +
-                ", year=" + year +
-                '}';
+        return  "||   "+description +"    ||";
+    }
+    public String getDescription() {
+        return description;
     }
 
     public int getYear() {
         return year;
+    }
+    public String getYearToString() {
+        return String.valueOf(year);
     }
 
 }

@@ -1,10 +1,9 @@
 package academy.mindswap;
 
 import academy.mindswap.server.Server;
-
 public class Main {
     public static void main(String[] args) {
-        Server server = new Server(3);
+        Server server = new Server();
     }
 
 }
