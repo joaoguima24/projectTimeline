@@ -10,6 +10,7 @@
 + Make your subscription with username ande password;
 + Put your usarname and password;
 + choose how many players and how many cards you want to play;
+![Captura de tela 2022-08-23 224124](https://user-images.githubusercontent.com/108727648/186271791-3ae5bc66-3700-4684-96c8-28cf32dd01aa.png)
 + Wait to have a minimum number of players to receive your Deck🧑🏿‍🤝‍🧑🏿;
 + In your playing time choose a card and post it on the game timeline🎴;
 + To insert the letter you must find between which index your letter should be.
