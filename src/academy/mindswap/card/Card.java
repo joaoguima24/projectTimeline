@@ -38,13 +38,17 @@ public class Card {
 
     @Override
     public String toString() {
-        return  description + '\'' +
-                ", year=" + year +
-                '}';
+        return  "||   "+description +"    ||";
+    }
+    public String getDescription() {
+        return description;
     }
 
     public int getYear() {
         return year;
+    }
+    public String getYearToString() {
+        return String.valueOf(year);
     }
 
 }

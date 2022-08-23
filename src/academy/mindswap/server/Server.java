@@ -111,9 +111,6 @@ public class Server {
             this.name = name;
         }
 
-        public void setWins(int wins) {
-            this.wins = wins;
-        }
 
         public int getNumberOfCardsWanted() {
             return numberOfCardsWanted;

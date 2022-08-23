@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="protected the edge case of trying to give one more card when the game deck is empty">
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Javadoc and some refactor in methods, Util class updated , game prepared to implement the Jframe">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/dataBase/db.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/dataBase/db.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" afterDir="false" />
@@ -162,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661244436639</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Javadoc and some refactor in methods, Util class updated , game prepared to implement the Jframe">
+      <created>1661262730970</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1661262730970</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -220,17 +224,7 @@
     <MESSAGE value="If client disconnect while playing the game is prepared to shift client and keep going&#10;Added a method asking all of the clients in the game if they want to play again" />
     <MESSAGE value="login area introduced with:&#10;nickname and password (encrypted) saved in a db&#10;validated login (match name and password)&#10;check if the player is currently on-line&#10;&#10;player can choose:&#10; the number of cards&#10; the number of players" />
     <MESSAGE value="protected the edge case of trying to give one more card when the game deck is empty" />
-    <option name="LAST_COMMIT_MESSAGE" value="protected the edge case of trying to give one more card when the game deck is empty" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/server/Server.java</url>
-          <line>114</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Javadoc and some refactor in methods, Util class updated , game prepared to implement the Jframe" />
+    <option name="LAST_COMMIT_MESSAGE" value="Javadoc and some refactor in methods, Util class updated , game prepared to implement the Jframe" />
   </component>
 </project>

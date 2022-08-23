@@ -8,7 +8,6 @@ public class Login implements Runnable{
     private final Server.ClientHandler client ;
     private String name;
     private boolean newPlayer;
-    private int totalWins;
     private int wantedDeckLength;
     private int wantedNumberOfPlayersPerGame;
     private String newPassword;
@@ -55,7 +54,6 @@ public class Login implements Runnable{
      */
     private void updateClient() {
         client.setName(this.name);
-        client.setWins(this.totalWins);
         client.setNumberOfCardsWanted(this.wantedDeckLength);
         client.setNumberOfPlayersWanted(this.wantedNumberOfPlayersPerGame);
     }

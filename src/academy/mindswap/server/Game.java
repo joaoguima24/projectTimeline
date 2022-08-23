@@ -98,9 +98,9 @@ public class Game implements Runnable{
             doYouWantToPlayAgain();
             return;
         }
-        broadCastMessage("\n ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. TIMELINE ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. \n");
+        broadCastMessage(Util.TIMELINE_SEPARATOR);
         sendTimeline();
-        broadCastMessage("\n ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. YOUR DECK ~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~.~.~^~. ");
+        broadCastMessage(Util.DECK_SEPARATOR);
         sendDecks();
         changeCurrentPlayer();
         receiveMessage();
@@ -127,7 +127,13 @@ public class Game implements Runnable{
      * Use our method broadCastMessage() to send the timeline to everyone
      */
     private void sendTimeline() {
-        broadCastMessage(timelineDeck.toString());
+        for (int i = 0; i < timelineDeck.size(); i++) {
+            broadCastMessage("Position " + i);
+            broadCastMessage(timelineDeck.get(i).getDescription());
+            broadCastMessage(timelineDeck.get(i).getYearToString());
+            broadCastMessage("--------------------------------------");
+        }
+        //broadCastMessage(timelineDeck.toString());
     }
 
     /**
@@ -254,7 +260,7 @@ public class Game implements Runnable{
                 }
                 client.addMeToNewGame();
             } catch (IOException e) {
-                throw new RuntimeException(Util.CLIENT_LOST_CONNECTION);
+                client.getPlayersOnline().remove(client);
             }
         });
     }
