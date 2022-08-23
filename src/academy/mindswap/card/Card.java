@@ -53,6 +53,10 @@ public class Card {
                 '}';
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public int getYear() {
         return year;
     }
