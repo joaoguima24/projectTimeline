@@ -52,6 +52,7 @@ public class Client {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(1000, 1000));
         frame.setResizable(true);
+        frame.setLayout(new BorderLayout());
         layeredPanel = new JLayeredPane();
         frame.add(layeredPanel);
 
@@ -202,23 +203,17 @@ public class Client {
     }
 
     private void lobbyGame(JFrame frame,JLayeredPane layeredPanel) {
-        frame.setSize(new Dimension((int)screenSize.getWidth(),(int) screenSize.getHeight()));
+        frame.setSize(new Dimension((int)screenSize.getWidth(),(int) screenSize.getHeight()-50));
         layeredPanel.removeAll();
-        JLabel label = new JLabel();
-        label.setBackground(Color.GRAY);
-        label.setOpaque(true);
-
-        label.setText("");
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setVerticalAlignment(SwingConstants.TOP);
-        label.setFont(new Font("Comic sans", Font.ITALIC, 30));
-        label.setVisible(true);
+        JPanel panel = new JPanel();
+        layeredPanel.setPreferredSize(new Dimension(frame.getWidth(), frame.getHeight()));
+        layeredPanel.setBounds(0,0, frame.getWidth(), frame.getHeight());
+        layeredPanel.setLayout(null);
+        layeredPanel.add(panel,0);
+        timelineWindow(panel);
+        frame.add(panel, BorderLayout.CENTER);
 
 
-
-        layeredPanel.add(label, BorderLayout.CENTER);
-
-        timelineWindow(layeredPanel);
 
 
 
@@ -226,71 +221,90 @@ public class Client {
 
     }
 
-    private void timelineWindow(JLayeredPane layeredPanel) {
-        layeredPanel.setLayout(new GridLayout(3,6));
-
-        JPanel topLayer = new JPanel();
-        topLayer.setForeground(Color.BLACK);
-        topLayer.setBackground(Color.GRAY);
-        topLayer.setBounds(1, 1, (int)screenSize.getWidth(), 250);
-        topLayer.setOpaque(true);
-        topLayer.setVisible(true);
-        layeredPanel.add(topLayer, 0);
+    private void timelineWindow(JPanel panel) {
+        panel.setOpaque(true);
+        panel.setSize(new Dimension((int)screenSize.getWidth(),(int) screenSize.getHeight()));
+        panel.setBackground(Color.BLACK);
+        panel.setToolTipText("Timeline");
+        panel.setLayout(new BorderLayout());
         JPanel timelinePanel = new JPanel();
-        timelinePanel.setLayout(new GridLayout(1,5));
-        timelinePanel.setBackground(Color.darkGray);
-        timelinePanel.setForeground(Color.yellow);
-        timelinePanel.setBounds(100,100,1000,500);
-
-        timelinePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        timelinePanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-        timelinePanel.setAutoscrolls(true);
-        timelinePanel.setOpaque(true);
-
-        timelinePanel.setVisible(true);
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
+        JPanel leftPanel = new JPanel();
+        JPanel rightPanel = new JPanel();
+        topPanel.setBackground(Color.BLACK);
+        topPanel.setLayout(new BorderLayout());
 
 
-        JLabel card1 = new JLabel();
-        card1.setHorizontalAlignment(SwingConstants.CENTER);
-        card1.setHorizontalTextPosition(SwingConstants.CENTER);
-        card1.setBorder(BorderFactory.createLineBorder(Color.BLUE,2,true));
-        card1.setFont(new Font("Comic sans", Font.BOLD, 10));
-        card1.setOpaque(true);
-        card1.setBounds(50,50,400,200);
-        card1.setVisible(true);
-        JTextArea card1Text = new JTextArea("Card 1");
-        card1Text.setFont(new Font("Comic sans", Font.BOLD, 20));
-        card1Text.setOpaque(true);
-        card1Text.setBackground(Color.BLUE);
-        card1Text.setForeground(Color.WHITE);
-        card1Text.setBounds(50,50,200,200);
-        card1Text.setVisible(true);
-        card1.add(card1Text);
+
+        JPanel topLeftPanel = new JPanel();
+        JPanel topRightPanel = new JPanel();
+        JPanel topCenterPanel = new JPanel();
+        topCenterPanel.setBounds(50,50, 200,100);
 
 
-        JLabel card2 = new JLabel();
-        card2.setHorizontalAlignment(SwingConstants.CENTER);
-        card2.setBorder(BorderFactory.createLineBorder(Color.BLUE,2));
-        card2.setFont(new Font("Comic sans", Font.BOLD, 10));
-        card2.setOpaque(true);
-        card2.setBounds(50,50,400,200);
-        card2.setVisible(true);
-        JTextArea card2Text = new JTextArea("Card 2");
-        card2Text.setFont(new Font("Comic sans", Font.BOLD, 20));
-        card2Text.setOpaque(true);
-        card2Text.setBackground(Color.BLUE);
-        card2Text.setForeground(Color.WHITE);
-        card2Text.setBounds(50,50,200,200);
-        card2Text.setVisible(true);
-        card2.add(card2Text);
-        timelinePanel.add(card1);
-        timelinePanel.add(card2);
 
-        timelinePanel.setVisible(true);
-        layeredPanel.setBounds(100,100,screenSize.width/4 * 3,screenSize.height/2);
-        layeredPanel.add(timelinePanel, 1);
+        topPanel.setBackground(Color.BLACK);
+        bottomPanel.setBackground(Color.BLACK);
+        leftPanel.setBackground(Color.gray);
+        rightPanel.setBackground(Color.gray);
+        topPanel.add(topLeftPanel, BorderLayout.WEST);
+        topPanel.add(topRightPanel, BorderLayout.EAST);
+        topPanel.add(topCenterPanel, BorderLayout.CENTER);
+
+
+
+
+        topPanel.setVisible(true);
+        timelinePanel.setBackground(Color.WHITE);
+
+
+
+        panel.add(timelinePanel, BorderLayout.CENTER);
+        panel.add(topPanel, BorderLayout.NORTH);
+        panel.add(bottomPanel, BorderLayout.SOUTH);
+        panel.add(leftPanel, BorderLayout.WEST);
+        panel.add(rightPanel, BorderLayout.EAST);
+
     }
 
+    private void createCardTextAndYear(JLabel card, String s, String yearText) {
+        JTextArea text = new JTextArea(s);
+        text.setFont(new Font("Comic sans", Font.BOLD, 20));
+        text.setOpaque(true);
+        text.setBackground(Color.gray);
+        text.setForeground(Color.WHITE);
+        text.setBorder(BorderFactory.createLineBorder(Color.black,2));
+        text.setBounds(50,60,this.label.getWidth(), card.getHeight()/2);
+        text.setVisible(true);
+        card.add(text);
+
+        JTextArea year = new JTextArea(yearText);
+        year.setFont(new Font("Comic sans", Font.BOLD, 30));
+        year.setOpaque(true);
+        year.setBackground(Color.gray);
+        year.setForeground(Color.WHITE);
+        year.setBorder(BorderFactory.createLineBorder(Color.black,2));
+        year.setBounds(50,200,this.label.getWidth(), card.getHeight()/2);
+        year.setVisible(true);
+        card.add(year);
+    }
+
+    private void createCardCar(JLabel card){
+        card.setHorizontalAlignment(SwingConstants.CENTER);
+        card.setHorizontalTextPosition(SwingConstants.CENTER);
+        card.setLayout(null);
+        card.setBackground(Color.gray);
+        card.setForeground(Color.WHITE);
+        card.setHorizontalAlignment(SwingConstants.CENTER);
+        card.setBorder(BorderFactory.createLineBorder(Color.WHITE,10));
+        card.setBorder(BorderFactory.createLineBorder(Color.BLUE,2,true));
+        card.setFont(new Font("Comic sans", Font.BOLD, 10));
+        card.setOpaque(true);
+        card.setMaximumSize(new Dimension(300,200));
+        card.setBounds(50,50,200,100);
+        card.setVisible(true);
+    }
 
 
 
@@ -300,11 +314,7 @@ public class Client {
         label.setOpaque(false);
         label.setStyledDocument(new DefaultStyledDocument());
         label.setBounds(100,100,800,600);
-
-
-
         label.setText(Util.RULES);
-
         label.setVisible(true);
 
     }

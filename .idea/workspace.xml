@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/client/TimelineGui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" afterDir="false" />
     </list>
@@ -51,7 +52,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.TimelineGui">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.client.Client" />
       <module name="projectTimeline" />
@@ -104,13 +105,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TimelineGui" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="academy.mindswap.client.TimelineGui" />
+      <module name="projectTimeline" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="academy.mindswap.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TimelineGui" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Gui" />
         <item itemvalue="Application.Login" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -172,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661214445663</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="GUI in Timeline started">
+      <created>1661217617220</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1661217617220</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,6 +244,7 @@
     <MESSAGE value="refactor to the game logic" />
     <MESSAGE value="Visual Interface working until login send." />
     <MESSAGE value="GUI until lobby" />
-    <option name="LAST_COMMIT_MESSAGE" value="GUI until lobby" />
+    <MESSAGE value="GUI in Timeline started" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI in Timeline started" />
   </component>
 </project>
