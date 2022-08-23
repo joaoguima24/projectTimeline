@@ -15,12 +15,14 @@ public class Game implements Runnable{
     private Server.ClientHandler currentClient;
     private Server.ClientHandler winner = null;
     private final ArrayList<Card> gameDeck;
+    private final ArrayList<Card> wrongCardDeck;
     private final List<Card> timelineDeck;
 
     public Game(ArrayList<Server.ClientHandler> listOfClients) {
         this.listOfClients = listOfClients;
         this.gameDeck = (ArrayList<Card>) Card.deck();
         this.timelineDeck = new ArrayList<>();
+        this.wrongCardDeck = new ArrayList<>();
         timelineDeck.add(new Card ("Timeline:",0));
         timelineDeck.add(new Card ("End:",4000));
     }
@@ -101,7 +103,7 @@ public class Game implements Runnable{
         int secondCardYear = timelineDeck.get(position2).getYear();
         if (cardYear < firstCardYear || cardYear > secondCardYear){
             currentClient.sendPrivateMessage("You played: " + gameDeck.get(indexCard) + " and failed");
-            currentClient.getDeck().remove(indexCard);
+            wrongCardDeck.add(currentClient.getDeck().remove(indexCard));
             currentClient.getDeck().add(giveCard());
             playRound();
         }
@@ -166,6 +168,10 @@ public class Game implements Runnable{
 
 
     private Card giveCard(){
+        if (gameDeck.isEmpty()){
+            shuffleCards(wrongCardDeck);
+            gameDeck.addAll(wrongCardDeck);
+        }
         return gameDeck.remove(0);
     }
 

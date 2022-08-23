@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="login area introduced with:&#10;nickname and password (encrypted) saved in a db&#10;validated login (match name and password)&#10;check if the player is currently on-line&#10;&#10;player can choose:&#10; the number of cards&#10; the number of players">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
