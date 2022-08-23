@@ -1,5 +1,5 @@
 # Timeline Game
-+It's a game where you'll test your knowledge about the history of technology, so if you're a tech nerd, show all your knowledge and have fun
++ It's a game where you'll test your knowledge about the history of technology, so if you're a tech nerd, show all your knowledge and have fun!!
 
 >Status: Developing ⚠️
 
