@@ -9,7 +9,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//gm3nd3s code
 public class Game implements Runnable{
     private final ArrayList<Server.ClientHandler> listOfClients;
     private Server.ClientHandler currentClient;
