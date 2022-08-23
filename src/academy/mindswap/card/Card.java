@@ -29,7 +29,7 @@ public class Card {
         deck.add(new Card("First computer chip.", 1958));
         deck.add(new Card("IBM and General Motors develop first Computer graphics.", 1959));
         deck.add(new Card("Theodore Maiman invents the ruby laser.", 1960));
-        deck.add(new Card("Tthe first commercially available IC's (integrated circuits) .", 1961));
+        deck.add(new Card("The first commercially available IC's (integrated circuits) .", 1961));
         deck.add(new Card("First video games.", 1962));
         deck.add(new Card("Advent of the mouse.", 1963));
         deck.add(new Card("E-commerce from IBM.", 1964));

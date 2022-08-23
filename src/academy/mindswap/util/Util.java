@@ -1,12 +1,29 @@
 package academy.mindswap.util;
 
+import academy.mindswap.server.Server;
+
 public class Util {
     public final static String WAITING_CONNECTIONS = "We are waiting for players to start the game.";
     public final static String WELCOME_NEW_PLAYER = " , welcome to our game!";
     public final static String TIMELINE_SEPARATOR = "\n ----------------------------------------------- TIMELINE ------------------------------------------------- \n";
     public final static String DECK_SEPARATOR = "\n ----------------------------------------------- YOUR DECK ------------------------------------------------ ";
-    public final static String WELCOME_TO_NEW_GAME = "WELCOME TO OUR GAME, LET'S HAVE SOME FUN !!";
-    public final static String WINNER_MESSAGE = "The Big Winner Is ";
+    public final static String WELCOME_TO_NEW_GAME = "WELCOME TO OUR LOBBY, LET'S HAVE SOME FUN !!";
+    public final static String WELCOME_MESSAGE = "\n" +
+            "____    __    ____  _______  __        ______   ______   .___  ___.  _______    .___________.  ______      .___________. __  .___  ___.  _______       \n" +
+            "\\   \\  /  \\  /   / |   ____||  |      /      | /  __  \\  |   \\/   | |   ____|   |           | /  __  \\     |           ||  | |   \\/   | |   ____|      \n" +
+            " \\   \\/    \\/   /  |  |__   |  |     |  ,----'|  |  |  | |  \\  /  | |  |__      `---|  |----`|  |  |  |    `---|  |----`|  | |  \\  /  | |  |__         \n" +
+            "  \\            /   |   __|  |  |     |  |     |  |  |  | |  |\\/|  | |   __|         |  |     |  |  |  |        |  |     |  | |  |\\/|  | |   __|        \n" +
+            "   \\    /\\    /    |  |____ |  `----.|  `----.|  `--'  | |  |  |  | |  |____        |  |     |  `--'  |        |  |     |  | |  |  |  | |  |____       \n" +
+            "    \\__/  \\__/     |_______||_______| \\______| \\______/  |__|  |__| |_______|       |__|      \\______/         |__|     |__| |__|  |__| |_______|_____ \n" +
+            "                                                                                                                                               |______|\n";
+    public final static String WINNER_MESSAGE = "\n" +
+            " __       _______.   .___________. __    __   _______    ____    __    ____  __  .__   __. .__   __.  _______ .______      \n" +
+            "|  |     /       |   |           ||  |  |  | |   ____|   \\   \\  /  \\  /   / |  | |  \\ |  | |  \\ |  | |   ____||   _  \\     \n" +
+            "|  |    |   (----`   `---|  |----`|  |__|  | |  |__       \\   \\/    \\/   /  |  | |   \\|  | |   \\|  | |  |__   |  |_)  |    \n" +
+            "|  |     \\   \\           |  |     |   __   | |   __|       \\            /   |  | |  . `  | |  . `  | |   __|  |      /     \n" +
+            "|  | .----)   |          |  |     |  |  |  | |  |____       \\    /\\    /    |  | |  |\\   | |  |\\   | |  |____ |  |\\  \\----.\n" +
+            "|__| |_______/           |__|     |__|  |__| |_______|       \\__/  \\__/     |__| |__| \\__| |__| \\__| |_______|| _| `._____|\n" +
+            "                                                                                                                           \n";
     public final static String NEW_CONNECTION = " Joined our room...";
     public final static String CLIENT_LOST_CONNECTION = " lost connection.";
     public final static String DATABASE_FILE_PATH = "/Users/guimaj/Documents/Mindswap/projectTimeline/src/academy/mindswap/server/dataBase/db.txt";

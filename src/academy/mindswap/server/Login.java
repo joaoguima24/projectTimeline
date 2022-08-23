@@ -19,6 +19,7 @@ public class Login implements Runnable{
     @Override
     public void run() {
         try {
+            client.sendPrivateMessage(Util.WELCOME_MESSAGE);
             startLoginValidations();
         } catch (IOException e) {
             throw new RuntimeException(e);

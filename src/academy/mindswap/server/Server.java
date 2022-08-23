@@ -28,6 +28,7 @@ public class Server {
             this.serverSocket = new ServerSocket(8080);
             this.listOfClients = new ArrayList<>();
             this.playersOnline = new ArrayList<>();
+            System.out.println(Util.WELCOME_MESSAGE);
             acceptClient();
         } catch (IOException e) {
             throw new RuntimeException(e);

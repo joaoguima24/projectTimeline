@@ -94,7 +94,8 @@ public class Game implements Runnable{
      */
     private void playRound(){
         if(checkWinner()){
-            broadCastMessage(Util.WINNER_MESSAGE + winner.getName());
+            broadCastMessage("G I V E   Y O U R   C O N G R A T U L A T I O N S   TO   " + winner.getName().toUpperCase() + "   , H E");
+            broadCastMessage(Util.WINNER_MESSAGE);
             doYouWantToPlayAgain();
             return;
         }
@@ -128,12 +129,14 @@ public class Game implements Runnable{
      */
     private void sendTimeline() {
         for (int i = 0; i < timelineDeck.size(); i++) {
-            broadCastMessage("Position " + i);
-            broadCastMessage(timelineDeck.get(i).getDescription());
-            broadCastMessage(timelineDeck.get(i).getYearToString());
-            broadCastMessage("--------------------------------------");
+            String cardPresentation="||   Position " + i + "   * * *   " + timelineDeck.get(i).getDescription() + "   * * *    Year: " +timelineDeck.get(i).getYearToString()+"   ||";
+            String separator = "-";
+            while (separator.length()<cardPresentation.length()){
+                separator +="-";
+            }
+            broadCastMessage(cardPresentation);
+            broadCastMessage(separator);
         }
-        //broadCastMessage(timelineDeck.toString());
     }
 
     /**
