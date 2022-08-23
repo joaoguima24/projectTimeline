@@ -1,7 +1,7 @@
-# Timeline Game
+*******# Timeline Game
 + It's a game where you'll test your knowledge about the history of technology, so if you're a tech nerd, show all your knowledge and have fun!!
-![Captura de tela 2022-08-04 120006](https://user-images.githubusercontent.com/108727648/186260255-089bf320-82fa-48fd-af6b-ddba745f9711.png)
-
+![Captura de tela 2022-/08-04 120006](https://user-images.githubusercontent.com/108727648/186260255-089bf320-82fa-48fd-af6b-ddba745f9711.png)
+*/
 >Status: Developing ⚠️
 
 ## How to use:
