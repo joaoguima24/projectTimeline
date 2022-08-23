@@ -44,6 +44,10 @@ public class Card {
         return description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public int getYear() {
         return year;
     }
