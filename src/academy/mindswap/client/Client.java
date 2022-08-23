@@ -122,23 +122,29 @@ public class Client {
         label.setBackground(Color.GRAY);
         label.setOpaque(true);
         label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        label.setText("In order to Play you need to login first");
+        JLabel loginLabel = new JLabel();
+        loginLabel.setText("In order to Play you need to login first");
+        loginLabel.setBounds(100, 100, 800, 200);
+        loginLabel.setFont(new Font("Comic sans", Font.BOLD, 30));
+        loginLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        loginLabel.setVerticalAlignment(SwingConstants.TOP);
+        loginLabel.setVisible(true);
+        label.add(loginLabel);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.TOP);
-        label.setFont(new Font("Comic sans", Font.BOLD, 20));
         label.setVisible(true);
-        usernameAndPasswordLabel(label);
+        usernameAndPasswordLabel(frame, layeredPanel);
 
 
         layeredPanel.add(label, BorderLayout.CENTER);
     }
 
-    private void usernameAndPasswordLabel(JLabel label) {
+    private void usernameAndPasswordLabel(JFrame frame,JLayeredPane layeredPanel) {
         JLabel usernameLabel = new JLabel("Username");
         JLabel passwordLabel = new JLabel("Password");
 
-        usernameLabel.setBounds(300,250, 300, 60);
-        passwordLabel.setBounds(300,350, 300, 60);
+        usernameLabel.setBounds(350,250, 300, 60);
+        passwordLabel.setBounds(350,350, 300, 60);
         usernameLabel.setFont(new Font("Comic sans", Font.BOLD, 20));
         passwordLabel.setFont(new Font("Comic sans", Font.BOLD, 20));
         usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -149,11 +155,13 @@ public class Client {
 
         JTextField usernameField = new JTextField("");
         JTextField passwordField = new JTextField("");
-        usernameField.setBounds(300,300, 300, 60);
-        passwordField.setBounds(300,400, 300, 60);
+        usernameField.setHorizontalAlignment(SwingConstants.CENTER);
+        passwordField.setHorizontalAlignment(SwingConstants.CENTER);
+        usernameField.setBounds(350,300, 300, 60);
+        passwordField.setBounds(350,400, 300, 60);
 
         JButton loginButton = new JButton("Login");
-        loginButton.setBounds(375,500, 150, 60);
+        loginButton.setBounds(425,500, 150, 60);
         loginButton.setHorizontalAlignment(SwingConstants.CENTER);
         loginButton.setFont(new Font("Comic sans", Font.BOLD, 20));
         loginButton.setVisible(true);
@@ -170,10 +178,53 @@ public class Client {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
-                sendMessageToServer(username);
-                sendMessageToServer(password);
+                if(username.equals("") || password.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please fill all the fields");
+                } else {
+                    try {
+                        lobbyGame(frame,layeredPanel);
+                        output.write("LOGIN");
+                        output.newLine();
+                        output.write(username);
+                        output.newLine();
+                        output.write(password);
+                        output.newLine();
+                        output.flush();
+
+                    } catch (IOException ex) {
+                        layeredPanel.add(new JPopupMenu().add(new JMenuItem("Error")), 0);
+                    }
+                }
+
         }
         });
+    }
+
+    private void lobbyGame(JFrame frame,JLayeredPane layeredPanel) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setSize(new Dimension((int)screenSize.getWidth(),(int) screenSize.getHeight()));
+        layeredPanel.removeAll();
+        JLabel label = new JLabel();
+        label.setBackground(Color.GRAY);
+        label.setOpaque(true);
+        label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        label.setText("LOGIN SUCCESSFUL");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.TOP);
+        label.setFont(new Font("Comic sans", Font.ITALIC, 30));
+        label.setVisible(true);
+
+        JLayer<JLabel> jLayer = new JLayer<JLabel>(label);
+        jLayer.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        jLayer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        //label.add(jLayer, BorderLayout.CENTER);
+
+
+
+
+        layeredPanel.add(label, BorderLayout.CENTER);
+
     }
 
     private void createRulesLabel(JTextPane label) {
