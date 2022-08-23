@@ -12,7 +12,7 @@
 + if the player misses the date of his round, he will lose the card not being inserted in the timeline and will receive another card increasing his deck.
 + The winner is whoever has the null number of cards in their hand first🏆.
 
-##Authors:
+## Authors:
 + Fábio Iketani
 + Gonçalo Mendes
 + João Guimarães
