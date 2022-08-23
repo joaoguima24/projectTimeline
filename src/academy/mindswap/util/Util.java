@@ -3,32 +3,25 @@ package academy.mindswap.util;
 public class Util {
     public final static String WAITING_CONNECTIONS = "We are waiting for players to start the game.";
     public final static String WELCOME_NEW_PLAYER = " , welcome to our game!";
+    public final static String TIMELINE_SEPARATOR = "\n ----------------------------------------------- TIMELINE ------------------------------------------------- \n";
+    public final static String DECK_SEPARATOR = "\n ----------------------------------------------- YOUR DECK ------------------------------------------------ ";
+    public final static String WELCOME_TO_NEW_GAME = "WELCOME TO OUR GAME, LET'S HAVE SOME FUN !!";
+    public final static String WINNER_MESSAGE = "The Big Winner Is ";
     public final static String NEW_CONNECTION = " Joined our room...";
-    public final static String GENERIC_PLAYER_NAME = "Player";
-    public final static String ITS_YOUR_TURN_TO_PLAY = "It's your turn to play:";
-
-
-    public static final String RULES = "OBJECTIVE OF TIMELINE: The objective of Timeline is to be the only person who no longer has a card.\n" +
-            "\n" +
-            "NUMBER OF PLAYERS: 2 to 8\n" +
-            "\n" +
-            "NUMBER OF CARDS: 109 cards each with the name of the event and its illustration on the front, the same information plus the date of the event on the back.\n" +
-            "\n" +
-            "RANK OF CARDS: cards will be sorted by date during the game\n" +
-            "\n" +
-            "TYPE OF GAME: historical dates sorting game\n" +
-            "\n" +
-            "AUDIENCE: teen, adult\n" +
-            "HOW TO DEAL TIMELINE\n" +
-            "Shuffle the cards.\n" +
-            "\n" +
-            "Each player receives the number of cards shown below face down and places them in front of them. Under no circumstances should the player look at the back (the date side).\n" +
-            "\n" +
-            "2-3 players: 6 cards\n" +
-            "4-5 players: 5 cards\n" +
-            "6-8 players: 4 cards\n" +
-            "note: players may by mutual agreement change the number of cards to be dealt, depending on their experience of the game.\n" +
-            "The remaining cards are placed on the table to form a draw pile, with the date sides hidden.\n" +
-            "\n" +
-            "The first card is drawn from the deck and placed in the centre of the playing area, turning it face up (date visible). This card will be the starting point of the timeline in which the players will place the cards they have in front of them.";
+    public final static String CLIENT_LOST_CONNECTION = " lost connection.";
+    public final static String DATABASE_FILE_PATH = "/Users/guimaj/Documents/Mindswap/projectTimeline/src/academy/mindswap/server/dataBase/db.txt";
+    public final static String PARAMETER_NICKNAME = "nickname";
+    public final static String PARAMETER_PASSWORD = "password";
+    public final static String PARAMETER_NUMBER_OF_PLAYERS = "number of players";
+    public final static String PARAMETER_NUMBER_OF_CARDS = "number of cards";
+    public final static String WRONG_PLAY = " failed, don't give up ! Fail again, fail better :D";
+    public final static String GOOD_PLAY = " is being on fire !!!";
+    public final static String ITS_YOUR_TURN_TO_PLAY = "It's your turn to play (Type a letter A = 1st card , B = 2nd card... + the position number)";
+    public final static String INSERT_NICKNAME = "Insert your nickname (max 25 characters):";
+    public final static String INSERT_PASSWORD = "Insert your password (max 20 characters):";
+    public final static String INSERT_NUMBER_OF_PLAYERS = "Insert the number of players that you would like to play, between 2 and 8 inclusive";
+    public final static String INSERT_NUMBER_OF_CARDS = "Insert the number of cards that you would like to have in the deck, between 3 and 6 inclusive";
+    public final static String INVALID_PARAMETER_LOGIN_TRY_AGAIN = "Invalid parameter, please try again";
+    public final static String INVALID_PLAY_ = "Invalid play, please pay attention to the game rules";
+    public final static String DO_YOU_WANT_TO_PLAY_AGAIN = "Do you want to play again?";
 }
