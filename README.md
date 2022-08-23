@@ -23,6 +23,7 @@
 + The winner is whoever has the null number of cards in their hand first🏆.
 ![Captura de tela 2022-08-23 231230](https://user-images.githubusercontent.com/108727648/186275489-c310bd09-85b3-4323-a01b-fc541d46bf00.png)
 + After the match, players will be able to start a new match, if a player does not participate again, a new player will enter that is on the waiting list.
+
 ![Captura de tela 2022-08-23 231303](https://user-images.githubusercontent.com/108727648/186275755-06c84c1a-6f78-41ad-bc24-cb067754e3e6.png)
 
 
