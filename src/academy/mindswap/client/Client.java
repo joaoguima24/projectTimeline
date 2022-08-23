@@ -1,5 +1,4 @@
 package academy.mindswap.client;
-import academy.mindswap.server.Server;
 import academy.mindswap.util.Util;
 
 import java.io.*;
@@ -45,7 +44,7 @@ public class Client {
     /**
      * Starting our forms of communication with the server:
      * input: the way we read a message from server
-     * kerboardReader: the way we communicate with our computer through the keyboard
+     * keyboardReader: the way we communicate with our computer through the keyboard
      * output: the way we send the message from keyboardReader to the server
      */
         private void startBuffers() {
@@ -82,20 +81,16 @@ public class Client {
     /**
      * Test if the server asked me a question, if it's true:
      * I need to answer to play my move using the method sendMessageToServer()
-     * @param inputFromServer
      */
     private void canIPlay(String inputFromServer) {
         if (inputFromServer.equalsIgnoreCase(Util.ITS_YOUR_TURN_TO_PLAY)
-                || inputFromServer.equalsIgnoreCase("Invalid play, please try again")
-                || inputFromServer.equalsIgnoreCase("Do you want to play again?")
-                || inputFromServer.equalsIgnoreCase("Insert your password (max 20 characters):")
-                || inputFromServer.equalsIgnoreCase("Insert the number of players that you would like to play, between 2 and 8 inclusive")
-                || inputFromServer.equalsIgnoreCase("Insert the number of cards that you would like to have in the deck, between 3 and 6 inclusive")
-                || inputFromServer.equalsIgnoreCase("Invalid nickname please try again.")
-                || inputFromServer.equalsIgnoreCase("Invalid password please try again.")
-                || inputFromServer.equalsIgnoreCase("Invalid number of players please try again.")
-                || inputFromServer.equalsIgnoreCase("Invalid number of cards please try again.")
-                ||inputFromServer.equalsIgnoreCase("Insert your nickname (max 25 characters):")) {
+                || inputFromServer.equalsIgnoreCase(Util.INVALID_PLAY_)
+                || inputFromServer.equalsIgnoreCase(Util.DO_YOU_WANT_TO_PLAY_AGAIN)
+                || inputFromServer.equalsIgnoreCase(Util.INSERT_PASSWORD)
+                || inputFromServer.equalsIgnoreCase(Util.INSERT_NUMBER_OF_PLAYERS)
+                || inputFromServer.equalsIgnoreCase(Util.INSERT_NUMBER_OF_CARDS)
+                || inputFromServer.equalsIgnoreCase(Util.INVALID_PARAMETER_LOGIN_TRY_AGAIN)
+                ||inputFromServer.equalsIgnoreCase(Util.INSERT_NICKNAME)) {
             sendMessageToServer();
         }
     }
