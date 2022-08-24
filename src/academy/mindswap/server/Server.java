@@ -9,12 +9,14 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.Semaphore;
 
 public class Server {
     private final ServerSocket serverSocket;
     private Socket clientSocket;
     private final ArrayList<ClientHandler> playersOnline;
     private ArrayList<ClientHandler> listOfClients;
+    private final Semaphore semaphore = new Semaphore(1);
 
     /**
      * Open a ServerSocket that will wait for players connection
@@ -209,7 +211,7 @@ public class Server {
          * Read all the lines of our db.txt and pass them for a new list
          * @return list
          */
-        protected synchronized List<String> importDataBaseFromFileToList(){
+        protected List<String> importDataBaseFromFileToList(){
             File dataBase = new File(Util.DATABASE_FILE_PATH);
             List<String> db = new ArrayList<>();
             try {
@@ -229,12 +231,16 @@ public class Server {
          * Add a client to this list
          * write the list updated to our file
          */
-        protected synchronized void addAndExportDataBaseFromListToFile(String clientToAdd){
+        protected  void addAndExportDataBaseFromListToFile(String clientToAdd){
             try {
+                semaphore.acquire();
                 List<String> db = importDataBaseFromFileToList();
                 db.add(clientToAdd);
                 Files.write(Path.of(Util.DATABASE_FILE_PATH),db);
+                semaphore.release();
             } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }

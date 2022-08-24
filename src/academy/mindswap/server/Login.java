@@ -11,6 +11,7 @@ public class Login implements Runnable{
     private int wantedDeckLength;
     private int wantedNumberOfPlayersPerGame;
     private String newPassword;
+    private static int numberOfTries;
 
     public Login(Server.ClientHandler client) {
         this.client = client;
@@ -34,6 +35,7 @@ public class Login implements Runnable{
      * @throws IOException
      */
     private void startLoginValidations() throws IOException {
+        numberOfTries=0;
         client.sendPrivateMessage(Util.INSERT_NICKNAME);
         analyseName(client.listenToClient());
         client.sendPrivateMessage(Util.INSERT_PASSWORD);
@@ -79,10 +81,12 @@ public class Login implements Runnable{
                     }
                 }
                 this.name = nameToAnalyse;
+                numberOfTries=0;
                 return;
             }
         }
         this.name=nameToAnalyse;
+        numberOfTries=0;
         this.newPlayer = true;
     }
 
@@ -103,6 +107,7 @@ public class Login implements Runnable{
         }
         if (newPlayer){
             this.newPassword = encryptPassword(passwordToAnalyse);
+            numberOfTries=0;
             return;
         }
         client.importDataBaseFromFileToList().forEach(lineFromDB->{
@@ -117,6 +122,7 @@ public class Login implements Runnable{
                 }
             }
         });
+        numberOfTries=0;
     }
     /**
      * This method is to encrypt the password, we will change the ascii value of every char of our password
@@ -158,6 +164,7 @@ public class Login implements Runnable{
             invalidParameter(Util.PARAMETER_NUMBER_OF_PLAYERS);
             return;
         }
+        numberOfTries=0;
         this.wantedNumberOfPlayersPerGame = Integer.parseInt(numberToAnalyse);
     }
 
@@ -171,6 +178,7 @@ public class Login implements Runnable{
             invalidParameter(Util.PARAMETER_NUMBER_OF_CARDS);
             return;
         }
+        numberOfTries=0;
         this.wantedDeckLength = Integer.parseInt(numberOfCardsToAnalyse);
     }
 
@@ -181,6 +189,11 @@ public class Login implements Runnable{
      * @throws IOException
      */
     private void invalidParameter(String parameter) throws IOException {
+        numberOfTries++;
+        if (numberOfTries >= 3){
+            client.sendPrivateMessage("You failed 3 times, start your login again.");
+            startLoginValidations();
+        }
         client.sendPrivateMessage(Util.INVALID_PARAMETER_LOGIN_TRY_AGAIN);
         switch (parameter) {
             case Util.PARAMETER_NICKNAME -> analyseName(client.listenToClient());

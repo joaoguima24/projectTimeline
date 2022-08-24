@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Improvement in the timeline presentation &#10;ascii art for welcome and winner message&#10;fixed the bug of database checking wrong passwords">
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Implemented semaphore instead of synchronized">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/dataBase/db.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/dataBase/db.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661290638055</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Implemented semaphore instead of synchronized">
+      <created>1661329708176</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1661329708176</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -249,6 +258,7 @@
     <MESSAGE value="cards uploaded by fabio" />
     <MESSAGE value="Javadoc added" />
     <MESSAGE value="Improvement in the timeline presentation &#10;ascii art for welcome and winner message&#10;fixed the bug of database checking wrong passwords" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improvement in the timeline presentation &#10;ascii art for welcome and winner message&#10;fixed the bug of database checking wrong passwords" />
+    <MESSAGE value="Implemented semaphore instead of synchronized" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented semaphore instead of synchronized" />
   </component>
 </project>
