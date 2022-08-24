@@ -261,7 +261,7 @@ public class Game implements Runnable{
                 } else {client.addMeToNewGame();}
 
             } catch (IOException e) {
-                client.getPlayersOnline().remove(client);
+                System.out.println(e);
             }
         });
     }
