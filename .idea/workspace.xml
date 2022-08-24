@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Javadoc added">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Improvement in the timeline presentation &#10;ascii art for welcome and winner message&#10;fixed the bug of database checking wrong passwords">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/dataBase/db.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/dataBase/db.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,8 +79,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Main" />
@@ -187,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661270329271</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Improvement in the timeline presentation &#10;ascii art for welcome and winner message&#10;fixed the bug of database checking wrong passwords">
+      <created>1661290638055</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1661290638055</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,6 +248,7 @@
     <MESSAGE value="Javadoc and some refactor in methods, Util class updated , game prepared to implement the Jframe" />
     <MESSAGE value="cards uploaded by fabio" />
     <MESSAGE value="Javadoc added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Javadoc added" />
+    <MESSAGE value="Improvement in the timeline presentation &#10;ascii art for welcome and winner message&#10;fixed the bug of database checking wrong passwords" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improvement in the timeline presentation &#10;ascii art for welcome and winner message&#10;fixed the bug of database checking wrong passwords" />
   </component>
 </project>
