@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"academy.mindswap"},{"l":"academy.mindswap.card"},{"l":"academy.mindswap.client"},{"l":"academy.mindswap.server"},{"l":"academy.mindswap.util"},{"l":"All Packages","u":"allpackages-index.html"}];updateSearchResults();
