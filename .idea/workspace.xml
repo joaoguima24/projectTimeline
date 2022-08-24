@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Fixed the bug of playing a new game">
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Implemented the number of tries in the login method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.client.Client" />
       <module name="projectTimeline" />
@@ -209,14 +208,7 @@
       <option name="project" value="LOCAL" />
       <updated>1661331083438</updated>
     </task>
-    <task id="LOCAL-00017" summary="Fixed the bug of playing a new game">
-      <created>1661339690727</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1661339690727</updated>
-    </task>
-    <option name="localTasksCounter" value="18" />
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -280,7 +272,6 @@
     <MESSAGE value="Improvement in the timeline presentation &#10;ascii art for welcome and winner message&#10;fixed the bug of database checking wrong passwords" />
     <MESSAGE value="Implemented semaphore instead of synchronized" />
     <MESSAGE value="Implemented the number of tries in the login method" />
-    <MESSAGE value="Fixed the bug of playing a new game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed the bug of playing a new game" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented the number of tries in the login method" />
   </component>
 </project>

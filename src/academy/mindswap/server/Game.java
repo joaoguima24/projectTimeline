@@ -207,7 +207,7 @@ public class Game implements Runnable{
         if(matcherBefore.find()){
             position1 = Integer.parseInt(matcherBefore.group());
         }
-        if (position1 < 0 || (position1+1) > timelineDeck.size()){
+        if (position1 < 0 || position1+1 >= timelineDeck.size()){
             invalidPlay();
         }
         validatePlay(indexCardByAsciiVal, position1);
@@ -258,10 +258,10 @@ public class Game implements Runnable{
             try {
                 if (!client.listenToClient().equalsIgnoreCase("yes")){
                     client.socket.close();
-                } else {client.addMeToNewGame();}
-
+                }
+                client.addMeToNewGame();
             } catch (IOException e) {
-                System.out.println(e);
+                client.getPlayersOnline().remove(client);
             }
         });
     }
