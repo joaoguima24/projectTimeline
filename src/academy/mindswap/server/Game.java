@@ -192,7 +192,7 @@ public class Game implements Runnable{
      * When all the validations are done, call method to validate the play
      */
     private void validateMessage(String message) {
-        currentClient.sendPrivateMessage(message);
+        //currentClient.sendPrivateMessage(message);
         if (message.equals("")){
             invalidPlay();
         }
