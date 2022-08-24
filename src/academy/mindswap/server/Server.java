@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class is responsible for the server side of the game.
+ * It is responsible for the communication between the game and the clients.
+ *
+ */
+
 public class Server {
     private final ServerSocket serverSocket;
     private Socket clientSocket;
