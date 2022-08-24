@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="Implemented the number of tries in the login method">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="55ff0c0c-7fce-41ea-85a5-7183ac5258ca" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/server/dataBase/db.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/server/dataBase/db.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/util/Util.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661331083438</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Implemented the number of tries in the login method">
+      <created>1661349433911</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1661349433911</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

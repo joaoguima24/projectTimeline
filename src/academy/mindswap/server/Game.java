@@ -258,8 +258,9 @@ public class Game implements Runnable{
             try {
                 if (!client.listenToClient().equalsIgnoreCase("yes")){
                     client.socket.close();
+                } else{
+                    client.addMeToNewGame();
                 }
-                client.addMeToNewGame();
             } catch (IOException e) {
                 client.getPlayersOnline().remove(client);
             }

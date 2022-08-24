@@ -34,7 +34,7 @@ public class Client {
      */
     private void connectToServer() {
             try {
-                this.socket = new Socket("localhost",8080);
+                this.socket = new Socket("10.10.226.151",8080);
                 startBuffers();
             } catch (IOException e) {
                 throw new RuntimeException("Not connected.");
