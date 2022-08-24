@@ -69,7 +69,7 @@ public class Server {
      */
     private void areWeReadyToStart() {
         int playersNeededToStart = getPlayersNeededToStart();
-        if (listOfClients.size() >= playersNeededToStart){
+        if (listOfClients.size() >= playersNeededToStart && playersNeededToStart >= 2){
                 new Thread(new Game(listOfClients)).start();
                 prepareServerForNewGame();
         }
@@ -103,7 +103,6 @@ public class Server {
         private int numberOfPlayersWanted;
         private int numberOfCardsWanted;
         private String name;
-        private int wins;
         private List<Card> deck;
 
         /**
