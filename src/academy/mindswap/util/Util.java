@@ -26,7 +26,7 @@ public class Util {
             "                                                                                                                           \n";
     public final static String NEW_CONNECTION = " Joined our room...";
     public final static String CLIENT_LOST_CONNECTION = " lost connection.";
-    public final static String DATABASE_FILE_PATH = "/Users/guimaj/Documents/Mindswap/projectTimeline/src/academy/mindswap/server/dataBase/db.txt";
+    public final static String DATABASE_FILE_PATH = "src/academy/mindswap/server/dataBase/db.txt";
     public final static String PARAMETER_NICKNAME = "nickname";
     public final static String PARAMETER_PASSWORD = "password";
     public final static String PARAMETER_NUMBER_OF_PLAYERS = "number of players";
@@ -40,5 +40,5 @@ public class Util {
     public final static String INSERT_NUMBER_OF_CARDS = "Insert the number of cards that you would like to have in the deck, between 3 and 6 inclusive";
     public final static String INVALID_PARAMETER_LOGIN_TRY_AGAIN = "Invalid parameter, please try again";
     public final static String INVALID_PLAY_ = "Invalid play, please pay attention to the game rules";
-    public final static String DO_YOU_WANT_TO_PLAY_AGAIN = "Do you want to play again?";
+    public final static String DO_YOU_WANT_TO_PLAY_AGAIN = "If you want to play again, type yes";
 }
